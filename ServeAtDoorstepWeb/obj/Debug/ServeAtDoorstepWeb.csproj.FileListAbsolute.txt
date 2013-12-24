@@ -1,0 +1,13 @@
+C:\Users\admin\Documents\Visual Studio 2012\Projects\ServeAtDoorstep\ServeAtDoorstepWeb\bin\ServeAtDoorstepWeb.dll
+C:\Users\admin\Documents\Visual Studio 2012\Projects\ServeAtDoorstep\ServeAtDoorstepWeb\bin\ServeAtDoorstepWeb.pdb
+C:\Users\admin\Documents\Visual Studio 2012\Projects\ServeAtDoorstep\ServeAtDoorstepWeb\bin\ServeAtDoorstepCommon.dll
+C:\Users\admin\Documents\Visual Studio 2012\Projects\ServeAtDoorstep\ServeAtDoorstepWeb\bin\ServeAtDoorstepData.dll
+C:\Users\admin\Documents\Visual Studio 2012\Projects\ServeAtDoorstep\ServeAtDoorstepWeb\bin\ServeAtDoorstepDataAccess.dll
+C:\Users\admin\Documents\Visual Studio 2012\Projects\ServeAtDoorstep\ServeAtDoorstepWeb\bin\ServeAtDoorstepServiceApp.dll
+C:\Users\admin\Documents\Visual Studio 2012\Projects\ServeAtDoorstep\ServeAtDoorstepWeb\bin\ServeAtDoorstepCommon.pdb
+C:\Users\admin\Documents\Visual Studio 2012\Projects\ServeAtDoorstep\ServeAtDoorstepWeb\bin\ServeAtDoorstepDataAccess.pdb
+C:\Users\admin\Documents\Visual Studio 2012\Projects\ServeAtDoorstep\ServeAtDoorstepWeb\bin\ServeAtDoorstepData.pdb
+C:\Users\admin\Documents\Visual Studio 2012\Projects\ServeAtDoorstep\ServeAtDoorstepWeb\bin\ServeAtDoorstepServiceApp.pdb
+C:\Users\admin\Documents\Visual Studio 2012\Projects\ServeAtDoorstep\ServeAtDoorstepWeb\obj\Debug\ServeAtDoorstepWeb.csprojResolveAssemblyReference.cache
+C:\Users\admin\Documents\Visual Studio 2012\Projects\ServeAtDoorstep\ServeAtDoorstepWeb\obj\Debug\ServeAtDoorstepWeb.dll
+C:\Users\admin\Documents\Visual Studio 2012\Projects\ServeAtDoorstep\ServeAtDoorstepWeb\obj\Debug\ServeAtDoorstepWeb.pdb

@@ -1,0 +1,8 @@
+C:\Users\remesh\Documents\Visual Studio 2012\Projects\ServeAtDoorstep\ServeAtDoorstepDataAccess\bin\Debug\ServeAtDoorstepDataAccess.dll
+C:\Users\remesh\Documents\Visual Studio 2012\Projects\ServeAtDoorstep\ServeAtDoorstepDataAccess\bin\Debug\ServeAtDoorstepDataAccess.pdb
+C:\Users\remesh\Documents\Visual Studio 2012\Projects\ServeAtDoorstep\ServeAtDoorstepDataAccess\obj\Debug\ServeAtDoorstepDataAccess.dll
+C:\Users\remesh\Documents\Visual Studio 2012\Projects\ServeAtDoorstep\ServeAtDoorstepDataAccess\obj\Debug\ServeAtDoorstepDataAccess.pdb
+C:\Users\admin\Documents\Visual Studio 2012\Projects\ServeAtDoorstep\ServeAtDoorstepDataAccess\bin\Debug\ServeAtDoorstepDataAccess.dll
+C:\Users\admin\Documents\Visual Studio 2012\Projects\ServeAtDoorstep\ServeAtDoorstepDataAccess\bin\Debug\ServeAtDoorstepDataAccess.pdb
+C:\Users\admin\Documents\Visual Studio 2012\Projects\ServeAtDoorstep\ServeAtDoorstepDataAccess\obj\Debug\ServeAtDoorstepDataAccess.dll
+C:\Users\admin\Documents\Visual Studio 2012\Projects\ServeAtDoorstep\ServeAtDoorstepDataAccess\obj\Debug\ServeAtDoorstepDataAccess.pdb

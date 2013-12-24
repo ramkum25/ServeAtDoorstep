@@ -1,0 +1,74 @@
+﻿body, button, input, select, textarea { font-family: Terminal; color: #222; }
+
+
+/* =============================================================================
+   Links
+   ========================================================================== 
+
+a { color: #808080; text-decoration: none; font-size: 15px; font-weight: 400; margin:15px 5px 15px 30px; }
+a:visited { color: #f00; }
+a:hover { color: #2ddb6b; }
+a:focus { outline: thin dotted; }*/
+
+hmenulink {
+text-decoration:none;
+}
+/* Improve readability when focused and hovered in all browsers: h5bp.com/h */
+a:hover, a:active { outline: 0; }
+
+Body 
+{
+    font-family:Arial,Verdana;
+    font-size:10pt;
+    font-weight:normal;
+    color:Black;
+    text-decoration:none;
+}
+A 
+{
+    font-family:Arial,Verdana;
+    font-size:10pt;
+    font-weight:bold;
+    color:#67ee61;
+    text-decoration:none;
+}
+a:visited { color: #551a8b; }
+a:hover { color: #06e; }
+a:focus { outline: thin dotted; }
+
+.borders 
+{
+    border:1px solid black;   
+}
+
+.whiteBdrRight
+{
+    border-right:1px solid white; 
+}
+.text 
+{
+  font-family:Arial;
+  font-size:10pt;
+  color:Black;   
+}
+.textBold
+{
+  font-family:Arial;
+  font-size:10pt;
+  color:Black;   
+  font-weight:bold;
+}
+.subHeading
+{
+  font-family:Arial;
+  font-size:12pt;
+  color:Black;   
+  font-weight:bold;
+}
+.pageHeading
+{
+  font-family:Arial;
+  font-size:14pt;
+  color:black;   
+  font-weight:bold;
+}

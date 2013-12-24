@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServeAtDoorstepServiceApp", "ServeAtDoorstepServiceApp\ServeAtDoorstepServiceApp.csproj", "{6BEE2596-982C-4430-8948-BF143B00F316}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{0CAF5A05-09A0-4951-9753-EC67C278C4D9}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServeAtDoorstepDataAccess", "ServeAtDoorstepDataAccess\ServeAtDoorstepDataAccess.csproj", "{4C883934-6AD4-442A-BA09-E9769C7ABBB1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServeAtDoorstepData", "ServeAtDoorstepData\ServeAtDoorstepData.csproj", "{579CB1D9-D003-427A-9529-77F3F7AC51B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServeAtDoorstepCommon", "ServeAtDoorstepCommon\ServeAtDoorstepCommon.csproj", "{2CF84569-3F3A-4FA4-A0F8-C1DD1E08DC65}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServeAtDoorstepWeb", "ServeAtDoorstepWeb\ServeAtDoorstepWeb.csproj", "{107424D4-BA62-4545-855D-7C811FF163DD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6BEE2596-982C-4430-8948-BF143B00F316}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BEE2596-982C-4430-8948-BF143B00F316}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BEE2596-982C-4430-8948-BF143B00F316}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BEE2596-982C-4430-8948-BF143B00F316}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C883934-6AD4-442A-BA09-E9769C7ABBB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C883934-6AD4-442A-BA09-E9769C7ABBB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C883934-6AD4-442A-BA09-E9769C7ABBB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C883934-6AD4-442A-BA09-E9769C7ABBB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{579CB1D9-D003-427A-9529-77F3F7AC51B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{579CB1D9-D003-427A-9529-77F3F7AC51B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{579CB1D9-D003-427A-9529-77F3F7AC51B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{579CB1D9-D003-427A-9529-77F3F7AC51B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CF84569-3F3A-4FA4-A0F8-C1DD1E08DC65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CF84569-3F3A-4FA4-A0F8-C1DD1E08DC65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CF84569-3F3A-4FA4-A0F8-C1DD1E08DC65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CF84569-3F3A-4FA4-A0F8-C1DD1E08DC65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{107424D4-BA62-4545-855D-7C811FF163DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{107424D4-BA62-4545-855D-7C811FF163DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{107424D4-BA62-4545-855D-7C811FF163DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{107424D4-BA62-4545-855D-7C811FF163DD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
