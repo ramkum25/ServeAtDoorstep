@@ -13,4 +13,16 @@ namespace ServeAtDoorstepData
         public string UserPassword { get; set; }
 
     }
+
+    public class SendMailDetails
+    {
+
+        public string MailSubject { set; get; }
+
+        public string MailID { get; set; }
+        public string MailContent { get; set; }
+
+    }
+
+
 }

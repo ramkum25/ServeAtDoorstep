@@ -46,12 +46,13 @@ ul.dropdown ul {
  visibility: hidden;
  position: absolute;
  top: 100%;
- left: 0;
+ right: 0px;
+ margin-right:-25px;
  width: 100%;
 }
 
 ul.dropdown ul li {
- float: none;
+ float: left;
 }
 
 ul.dropdown ul ul {

@@ -39,12 +39,40 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=3.5.40412.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\AjaxControlToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="AjaxMin, Version=4.97.4951.28478, Culture=neutral, PublicKeyToken=21ef50ce11b5d80f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\AjaxMin.dll</HintPath>
+    </Reference>
     <Reference Include="ASP.Web.UI.PopupControl, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\ASP.Web.UI.PopupControl.dll</HintPath>
     </Reference>
+    <Reference Include="CustomAjaxServerControlSample, Version=1.0.5096.16323, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\CustomAjaxServerControlSample.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Maps, Version=0.11.1.28730, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Google.Maps.dll</HintPath>
+    </Reference>
+    <Reference Include="Hammock, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c148cfba29ed1a4d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Hammock.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\System.Net.Http.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -59,12 +87,18 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="WorldDomination.Net.IPAddressExtensions, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\WorldDomination.Net.IPAddressExtensions.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="AboutUs.aspx" />
     <Content Include="Activation.aspx" />
-    <Content Include="AdminHome.aspx" />
+    <Content Include="AddService.aspx" />
+    <Content Include="Category.aspx" />
     <Content Include="ContactUs.aspx" />
+    <Content Include="css\Ajax-Uploader\demo.css" />
     <Content Include="css\boilerplate.css" />
     <Content Include="css\horimenu\dropdown\dropdown.css" />
     <Content Include="css\horimenu\dropdown\dropdown.linear.columnar.css" />
@@ -81,28 +115,93 @@
     <Content Include="css\style.css" />
     <Content Include="css\style.ie7.css" />
     <Content Include="css\style.responsive.css" />
+    <Content Include="css\tabStyleSheet.css" />
+    <Content Include="EditCustomerProfile.aspx" />
+    <Content Include="EditVendorProfile.aspx" />
+    <Content Include="image\blueGrad.jpg" />
+    <Content Include="image\close.png" />
+    <Content Include="image\cussatisfy.jpg" />
+    <Content Include="image\CusService.jpg" />
+    <Content Include="image\delivery.jpg" />
+    <Content Include="image\error.jpg" />
+    <Content Include="image\fileTooBig.gif" />
+    <Content Include="image\green.jpg" />
+    <Content Include="image\HomeServices.jpg" />
+    <Content Include="image\lightblue.jpg" />
+    <Content Include="image\loading.gif" />
+    <Content Include="image\location.png" />
+    <Content Include="image\locationg.png" />
+    <Content Include="image\Mail Reply.png" />
+    <Content Include="image\orange.jpg" />
+    <Content Include="image\red.jpg" />
+    <Content Include="image\reply.png" />
+    <Content Include="image\replyblue.jpg" />
+    <Content Include="image\replyg.png" />
+    <Content Include="image\replygreen.jpg" />
+    <Content Include="image\serveathome.jpg" />
+    <Content Include="image\ServeDoor.png" />
+    <Content Include="image\uploading.gif" />
+    <Content Include="image\view.png" />
+    <Content Include="image\viewblue.png" />
+    <Content Include="image\viewbtn.png" />
+    <Content Include="image\viewbutton.png" />
+    <Content Include="image\warning.png" />
+    <Content Include="InboxCustomer.aspx" />
     <Content Include="Footer.ascx" />
     <Content Include="ForgotPassword.aspx" />
+    <Content Include="greybox\AJS.js" />
+    <Content Include="greybox\AJS_fx.js" />
+    <Content Include="greybox\gb_scripts.js" />
+    <Content Include="greybox\gb_styles.css" />
+    <Content Include="greybox\g_close.gif" />
+    <Content Include="greybox\header_bg.gif" />
+    <Content Include="greybox\indicator.gif" />
+    <Content Include="greybox\loader_frame.html" />
+    <Content Include="greybox\next.gif" />
+    <Content Include="greybox\prev.gif" />
+    <Content Include="greybox\w_close.gif" />
     <Content Include="Help.aspx" />
+    <Content Include="image\delete.jpg" />
+    <Content Include="image\Edit.jpg" />
+    <Content Include="image\green_bg_Tab.gif" />
+    <Content Include="image\green_left_tab.gif" />
+    <Content Include="image\green_right_Tab.gif" />
     <Content Include="image\NoPhoto.jpg" />
     <Content Include="image\ServeAtDoor.png" />
+    <Content Include="InboxVendor.aspx" />
     <Content Include="index.aspx" />
+    <Content Include="js\jquery-2.0.2.js" />
+    <Content Include="js\jquery-2.0.2.min.js" />
+    <Content Include="js\jquery-latest.js" />
+    <Content Include="js\jquery.js" />
+    <Content Include="Login.aspx" />
+    <Content Include="LoginO.aspx" />
     <Content Include="js\menuAccount.js" />
     <Content Include="js\menuTop.js" />
     <Content Include="js\serveMenuList.js" />
-    <Content Include="LoginVendor.aspx" />
-    <Content Include="LoginCustomer.aspx" />
+    <Content Include="Membership.aspx" />
     <Content Include="MyAdminDash.aspx" />
     <Content Include="MyMessage.aspx" />
     <Content Include="MyCustomerDash.aspx" />
+    <Content Include="MyCustomerProfile.aspx" />
     <Content Include="MyVendorDash.aspx" />
+    <Content Include="MyVendorProfile.aspx" />
+    <Content Include="PostFeedback.aspx" />
+    <Content Include="PostOrder.aspx" />
     <Content Include="PostQuote.aspx" />
     <Content Include="RegisterCustomer.aspx" />
     <Content Include="RegisterVendor.aspx" />
+    <Content Include="Service.aspx" />
+    <Content Include="ShowInquiry.aspx" />
+    <Content Include="ShowInquiryDet.aspx" />
     <Content Include="SignOut.aspx" />
     <Content Include="Success.aspx" />
+    <Content Include="UserControl\AddService.ascx" />
     <Content Include="UserControl\Menu.ascx" />
-    <Content Include="Web.config" />
+    <Content Include="ViewService.aspx" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="WebForm1.aspx" />
     <Content Include="WebForm2.aspx" />
     <Content Include="WebTemp.aspx" />
@@ -122,12 +221,19 @@
     <Compile Include="Activation.aspx.designer.cs">
       <DependentUpon>Activation.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AdminHome.aspx.cs">
-      <DependentUpon>AdminHome.aspx</DependentUpon>
+    <Compile Include="AddService.aspx.cs">
+      <DependentUpon>AddService.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AdminHome.aspx.designer.cs">
-      <DependentUpon>AdminHome.aspx</DependentUpon>
+    <Compile Include="AddService.aspx.designer.cs">
+      <DependentUpon>AddService.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Category.aspx.cs">
+      <DependentUpon>Category.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Category.aspx.designer.cs">
+      <DependentUpon>Category.aspx</DependentUpon>
     </Compile>
     <Compile Include="ContactUs.aspx.cs">
       <DependentUpon>ContactUs.aspx</DependentUpon>
@@ -135,6 +241,27 @@
     </Compile>
     <Compile Include="ContactUs.aspx.designer.cs">
       <DependentUpon>ContactUs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EditCustomerProfile.aspx.cs">
+      <DependentUpon>EditCustomerProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditCustomerProfile.aspx.designer.cs">
+      <DependentUpon>EditCustomerProfile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EditVendorProfile.aspx.cs">
+      <DependentUpon>EditVendorProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditVendorProfile.aspx.designer.cs">
+      <DependentUpon>EditVendorProfile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="InboxCustomer.aspx.cs">
+      <DependentUpon>InboxCustomer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InboxCustomer.aspx.designer.cs">
+      <DependentUpon>InboxCustomer.aspx</DependentUpon>
     </Compile>
     <Compile Include="Footer.ascx.cs">
       <DependentUpon>Footer.ascx</DependentUpon>
@@ -157,6 +284,13 @@
     <Compile Include="Help.aspx.designer.cs">
       <DependentUpon>Help.aspx</DependentUpon>
     </Compile>
+    <Compile Include="InboxVendor.aspx.cs">
+      <DependentUpon>InboxVendor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InboxVendor.aspx.designer.cs">
+      <DependentUpon>InboxVendor.aspx</DependentUpon>
+    </Compile>
     <Compile Include="index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -164,19 +298,26 @@
     <Compile Include="index.aspx.designer.cs">
       <DependentUpon>index.aspx</DependentUpon>
     </Compile>
-    <Compile Include="LoginVendor.aspx.cs">
-      <DependentUpon>LoginVendor.aspx</DependentUpon>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="LoginVendor.aspx.designer.cs">
-      <DependentUpon>LoginVendor.aspx</DependentUpon>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
-    <Compile Include="LoginCustomer.aspx.cs">
-      <DependentUpon>LoginCustomer.aspx</DependentUpon>
+    <Compile Include="LoginO.aspx.cs">
+      <DependentUpon>LoginO.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="LoginCustomer.aspx.designer.cs">
-      <DependentUpon>LoginCustomer.aspx</DependentUpon>
+    <Compile Include="LoginO.aspx.designer.cs">
+      <DependentUpon>LoginO.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Membership.aspx.cs">
+      <DependentUpon>Membership.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Membership.aspx.designer.cs">
+      <DependentUpon>Membership.aspx</DependentUpon>
     </Compile>
     <Compile Include="MyAdminDash.aspx.cs">
       <DependentUpon>MyAdminDash.aspx</DependentUpon>
@@ -199,12 +340,40 @@
     <Compile Include="MyCustomerDash.aspx.designer.cs">
       <DependentUpon>MyCustomerDash.aspx</DependentUpon>
     </Compile>
+    <Compile Include="MyCustomerProfile.aspx.cs">
+      <DependentUpon>MyCustomerProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MyCustomerProfile.aspx.designer.cs">
+      <DependentUpon>MyCustomerProfile.aspx</DependentUpon>
+    </Compile>
     <Compile Include="MyVendorDash.aspx.cs">
       <DependentUpon>MyVendorDash.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="MyVendorDash.aspx.designer.cs">
       <DependentUpon>MyVendorDash.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MyVendorProfile.aspx.cs">
+      <DependentUpon>MyVendorProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MyVendorProfile.aspx.designer.cs">
+      <DependentUpon>MyVendorProfile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PostFeedback.aspx.cs">
+      <DependentUpon>PostFeedback.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PostFeedback.aspx.designer.cs">
+      <DependentUpon>PostFeedback.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PostOrder.aspx.cs">
+      <DependentUpon>PostOrder.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PostOrder.aspx.designer.cs">
+      <DependentUpon>PostOrder.aspx</DependentUpon>
     </Compile>
     <Compile Include="PostQuote.aspx.cs">
       <DependentUpon>PostQuote.aspx</DependentUpon>
@@ -235,12 +404,26 @@
     <Compile Include="Serve.Master.designer.cs">
       <DependentUpon>Serve.Master</DependentUpon>
     </Compile>
-    <Compile Include="ServeHome.Master.cs">
-      <DependentUpon>ServeHome.Master</DependentUpon>
+    <Compile Include="Service.aspx.cs">
+      <DependentUpon>Service.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ServeHome.Master.designer.cs">
-      <DependentUpon>ServeHome.Master</DependentUpon>
+    <Compile Include="Service.aspx.designer.cs">
+      <DependentUpon>Service.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ShowInquiry.aspx.cs">
+      <DependentUpon>ShowInquiry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ShowInquiry.aspx.designer.cs">
+      <DependentUpon>ShowInquiry.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ShowInquiryDet.aspx.cs">
+      <DependentUpon>ShowInquiryDet.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ShowInquiryDet.aspx.designer.cs">
+      <DependentUpon>ShowInquiryDet.aspx</DependentUpon>
     </Compile>
     <Compile Include="SignOut.aspx.cs">
       <DependentUpon>SignOut.aspx</DependentUpon>
@@ -256,12 +439,26 @@
     <Compile Include="Success.aspx.designer.cs">
       <DependentUpon>Success.aspx</DependentUpon>
     </Compile>
+    <Compile Include="UserControl\AddService.ascx.cs">
+      <DependentUpon>AddService.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControl\AddService.ascx.designer.cs">
+      <DependentUpon>AddService.ascx</DependentUpon>
+    </Compile>
     <Compile Include="UserControl\Menu.ascx.cs">
       <DependentUpon>Menu.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="UserControl\Menu.ascx.designer.cs">
       <DependentUpon>Menu.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewService.aspx.cs">
+      <DependentUpon>ViewService.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewService.aspx.designer.cs">
+      <DependentUpon>ViewService.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebForm1.aspx.cs">
       <DependentUpon>WebForm1.aspx</DependentUpon>
@@ -287,7 +484,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Serve.Master" />
-    <Content Include="ServeHome.Master" />
     <Content Include="css\horimenu\dropdown\dropdown.css.bak" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -331,7 +527,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>2390</DevelopmentServerPort>
+          <DevelopmentServerPort>3455</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:2312/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

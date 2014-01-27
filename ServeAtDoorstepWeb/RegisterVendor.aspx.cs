@@ -6,9 +6,14 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
 using System.Web;
+using System.Net;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Xml;
+using System.Web.Script.Serialization;
+using System.Xml.Serialization;
 using ServeAtDoorstepServiceApp;
+using ServeAtDoorstepData;
 using ServeAtDoorstepCommon;
 
 namespace ServeAtDoorstepWeb
@@ -19,11 +24,17 @@ namespace ServeAtDoorstepWeb
 
         public int intVendorAvail = 0, intMailAvail = 0, intVaidError = 0;
         public string strErrorMessage = "";
-       
+        public string _usZipRegEx = @"^\d{5}(?:[-\s]\d{4})?$";
+        public string _caZipRegEx = @"^([ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ])\ {0,1}(\d[ABCEGHJKLMNPRSTVWXYZ]\d)$";
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            ddlState.SelectedIndexChanged += new EventHandler(ddlState_SelectedIndexChanged);
+            ddlCity.Attributes.Add("onChange", "return codeAddress();");
+
             if (!IsPostBack)
             {
+
                 LoadCategory();
                 LoadMembership();
                 LoadCountry();
@@ -42,11 +53,17 @@ namespace ServeAtDoorstepWeb
             for (int i = 0; i < dt1.Rows.Count; i++)
             {
                 ListItem chkCat = new ListItem();
-                chkCat.Text = dt1.Rows[i]["CategoryName"].ToString();
+                chkCat.Text = "  "+dt1.Rows[i]["CategoryName"].ToString();
                 chkCat.Value = dt1.Rows[i]["CategoryID"].ToString();
                 chkCateList.Items.Add(chkCat);
 
             }
+        }
+
+        void ListStateByCountry()
+        {
+            int iCntId = Convert.ToInt32(ddlCountry.SelectedIndex.ToString());
+
         }
 
         void LoadMembership()
@@ -83,6 +100,9 @@ namespace ServeAtDoorstepWeb
                 listItem.Value = dt1.Rows[i]["CountryId"].ToString();
                 ddlCountry.Items.Add(listItem);
             }
+
+            ddlCountry.SelectedIndex = 244;
+            ddlCountry.Disabled = true;
         }
 
         void LoadCity()
@@ -138,8 +158,8 @@ namespace ServeAtDoorstepWeb
                 objVenDetails.VendorName = txtVendorName.Value.ToString();
                 objVenDetails.VendorAddress = txtAddress.Value.ToString();
                 objVenDetails.VendorStreet = txtStreet.Value.ToString();
-                objVenDetails.VendorCityId = Convert.ToInt32(ddlCity.Value.ToString());
-                objVenDetails.VendorStateId = Convert.ToInt32(ddlState.Value.ToString());
+                objVenDetails.VendorCityId = Convert.ToInt32(ddlCity.SelectedItem.Value.ToString());
+                objVenDetails.VendorStateId = Convert.ToInt32(ddlState.SelectedItem.Value.ToString());
                 objVenDetails.VendorCountryId = Convert.ToInt32(ddlCountry.Value.ToString());
                 objVenDetails.VendorEmail = txtEmail.Value.ToString();
                 objVenDetails.VendorZipcode = txtZipcode.Value.ToString();
@@ -160,11 +180,117 @@ namespace ServeAtDoorstepWeb
                 objVenDetails.CVCNumber = txtCVC.Value.ToString();
 
                 objService = new ServeAtDoorstepService();
-                int intCusId = objService.AddVendorRegister(objVenDetails);
+                int intVendId = objService.AddVendorRegister(objVenDetails);
 
-                SendMailtoUser(intCusId);
+                for(int intCnt=0;intCnt<chkCateList.Items.Count;intCnt++)
+                {
+                    if (chkCateList.Items[intCnt].Selected == true)
+                    {
+                        int iCatID = Convert.ToInt32(chkCateList.Items[intCnt].Value.ToString());
 
-                Response.Redirect("Success.aspx?type=ven");
+                        objService = new ServeAtDoorstepService();
+                        DataTable dtServ = objService.SelectServiceByCatID(iCatID);
+
+                        //if (dtServ.Rows.Count > 0)
+                        {
+                            //for (int intSer = 0; intSer < dtServ.Rows.Count; intSer++)
+                            {
+                                VendorServiceDetails objVSData = new VendorServiceDetails();
+                                objVSData.VendorServiceId = 0;
+                                objVSData.VendorId = intVendId;
+                                objVSData.CategoryId = iCatID;
+                                objVSData.ServiceId = 0;// Convert.ToInt32(dtServ.Rows[0]["ServiceID"].ToString());
+                                objVSData.Status = "1";
+
+                                int i = objService.AddVendorService(objVSData);
+
+                            }
+                        }
+                    }
+                }
+
+
+
+                #region .. VENDOR COVERAGE AREA ..
+
+                //var requestUri = "https://www.zipwise.com/webservices/radius.php?key=yj7b6stzbr3lmmoo&zip=" + txtZipcode.Value.Trim() + "&radius=5&format=xml";
+                //var requestUri = "https://zipcodedistanceapi.redline13.com/rest/VGO5Fus2poaNqECnpYc77kfZARW0TjgP04UFymHYLSMcxoAWnM3u6itHaqH4KXTK/radius.xml/" + txtZipcode.Value.Trim() + "/15/mile";
+                var requestUri = "https://zipcodedistanceapi.redline13.com/rest/dtMOhbP1itLs2K2WQNccHRkUoEGJfDds7Zgoa6ptAbWCWYzMMLYuDjo1Y4LdIYGP/radius.xml/" + txtZipcode.Value.Trim() + "/15/mile";
+
+                var webRequest = (HttpWebRequest)WebRequest.Create(requestUri);
+
+                webRequest.Method = "GET";
+
+                webRequest.ContentType = "application/xml";
+
+                HttpWebResponse response;
+
+                string responseContent = "";
+
+                try
+                {
+
+                    response = (HttpWebResponse)webRequest.GetResponse();
+
+                    XmlDocument xmlDoc = new XmlDocument();
+                    xmlDoc.Load(response.GetResponseStream());
+
+                    //Create namespace manager
+                    int intAreaCount = 0;
+                    string[] sCity = new string[500];
+                    string[] state = new string[500];
+                    string[] sZip = new string[500];
+                    string[] sDis = new string[500];
+
+                    XmlNamespaceManager nsmgr = new XmlNamespaceManager(xmlDoc.NameTable);
+                    nsmgr.AddNamespace("rest", "http://schemas.microsoft.com/search/local/ws/rest/v1");
+                    string s = xmlDoc.InnerXml.Contains("error").ToString();
+                    if (xmlDoc.InnerXml.Contains("error").ToString() == "False")
+                    {
+                        XmlNodeList locationElements = xmlDoc.SelectNodes("results/result", nsmgr);
+                        int i = 0;
+                        foreach (XmlNode location in locationElements)
+                        {
+                            sZip[i] = location.SelectSingleNode("zip", nsmgr).InnerText;
+                            //sCity[i] = location.SelectSingleNode("city", nsmgr).InnerText;
+                            //state[i] = location.SelectSingleNode("state", nsmgr).InnerText;
+                            //sDis[i] = location.SelectSingleNode("distance", nsmgr).InnerText;
+
+                            i++;
+                            intAreaCount++;
+                        }
+                    }
+                    webRequest.Abort();
+
+                    for (int iACnt = 0; iACnt < intAreaCount; iACnt++)
+                    {
+                        ServeAtDoorstepData.VendorAreaDetails objVendorArea = new VendorAreaDetails();
+                        objVendorArea.VendorAreaID = 0;
+                        objVendorArea.VendorId = intVendId;
+                        objVendorArea.VAZipcode = sZip[iACnt];
+                        objVendorArea.VACityName = "";// sCity[iACnt];
+                        objVendorArea.VAState = "";//state[iACnt];
+                        objVendorArea.VADistance = "";//sDis[iACnt];
+
+                        int j = objService.AddVendorArea(objVendorArea);
+
+                    }
+                }
+                catch (WebException webex)
+                {
+                    //lblResult.Text = "INVALID ZIPCODE";
+
+                }
+
+
+                #endregion
+
+
+                SendMailtoUser(intVendId);
+
+                lblEmailId.Text = txtEmail.Value.ToString();
+                this.ModalPopupSuccess.Show();
+                //Response.Redirect("Success.aspx?type=ven");
             }
             else
             {
@@ -175,48 +301,86 @@ namespace ServeAtDoorstepWeb
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            Response.Redirect("LoginVendor.aspx");
+            Response.Redirect("Login.aspx");
         }
 
         void CheckValidation()
         {
+            strErrorMessage = "";
+
             if (txtLoginname.Value.ToString() == "")
             {
                 intVaidError++;
-                strErrorMessage = "Login Name should not be empty.<br />";
+                strErrorMessage += "<img src='image/warning.png' height='25px' width='25px' />&nbsp;&nbsp;Login Name should not be empty.<br />";
             }
             VendorCheck();
             if (intVendorAvail == 1)
             {
                 intVaidError++;
-                strErrorMessage += "Login Name already exists.<br />";
+                strErrorMessage += "<img src='image/warning.png' height='25px' width='25px' />&nbsp;&nbsp;Vendor Login Name already exists.<br />";
             }
             if (txtPassword.Value.ToString() == "")
             {
                 intVaidError++;
-                strErrorMessage = "Login Password should not be empty.<br />";
+                strErrorMessage = "<img src='image/warning.png' height='25px' width='25px' />&nbsp;&nbsp;Login Password should not be empty.<br />";
             }
             if (txtPassword.Value.ToString() != txtConPassword.Value.ToString())
             {
                 intVaidError++;
-                strErrorMessage = "Confirm password should be match with password.<br />";
+                strErrorMessage = "<img src='image/warning.png' height='25px' width='25px' />&nbsp;&nbsp;Confirm password should be match with password.<br />";
             }
-
+            int iChkCount = 0;
+            for (int intCnt = 0; intCnt < chkCateList.Items.Count; intCnt++)
+            {
+                if (chkCateList.Items[intCnt].Selected == true)
+                {
+                    iChkCount++;
+                }
+            }
+            if (iChkCount == 0)
+            {
+                intVaidError++;
+                strErrorMessage = "<img src='image/warning.png' height='25px' width='25px' />&nbsp;&nbsp;Please Select Category.<br />";
+            } 
+            
             if (!IsEmailValid(txtEmail.Value.ToString()))
             {
                 intVaidError++;
-                strErrorMessage += "E mail address is not valid.<br />";
+                strErrorMessage += "<img src='image/warning.png' height='25px' width='25px' />&nbsp;&nbsp;E mail address is not valid.<br />";
             }
             MailCheck();
             if (intMailAvail == 1)
             {
                 intVaidError++;
-                strErrorMessage += "E mail address already exists.<br />";
+                strErrorMessage += "<img src='image/warning.png' height='25px' width='25px' />&nbsp;&nbsp;E mail address already exists.<br />";
+            }
+
+            if (txtVendorName.Value.ToString() == "")
+            {
+                intVaidError++;
+                strErrorMessage += "<img src='image/warning.png' height='25px' width='25px' />&nbsp;&nbsp;Vendor Name should not be empty.<br />";
+            } 
+            if (ddlState.SelectedIndex == 0)
+            {
+                intVaidError++;
+                strErrorMessage += "<img src='image/warning.png' height='25px' width='25px' />&nbsp;&nbsp;Please select Vendor state.<br />";
+            
+            }
+            if (ddlCity.SelectedIndex == 0)
+            {
+                intVaidError++;
+                strErrorMessage += "<img src='image/warning.png' height='25px' width='25px' />&nbsp;&nbsp;Please select Vendor city.<br />";
+            
+            }
+            if(!IsUsorCanadianZipCode(txtZipcode.Value.ToString()))
+            {
+                intVaidError++;
+                strErrorMessage += "<img src='image/warning.png' height='25px' width='25px' />&nbsp;&nbsp;Zip Code is not valid.<br />";
             }
             if (chkAgree.Checked == false)
             {
                 intVaidError++;
-                strErrorMessage += "Please agree terms and conditions.<br />";
+                strErrorMessage += "<img src='image/warning.png' height='25px' width='25px' />&nbsp;&nbsp;Please agree terms and conditions.<br />";
             }
         }
 
@@ -298,5 +462,59 @@ namespace ServeAtDoorstepWeb
 
         #endregion
 
+        protected void ddlState_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            objService = new ServeAtDoorstepService();
+            DataTable dtCy = objService.SelectCityByStateId(Convert.ToInt32(ddlState.SelectedIndex.ToString()));
+            ddlCity.Items.Clear();
+            ListItem listItem = new ListItem();
+            listItem.Text = "<Select City>";
+            listItem.Value = "0";
+            ddlCity.Items.Add(listItem);
+            for (int i = 0; i < dtCy.Rows.Count; i++)
+            {
+                listItem = new ListItem();
+                listItem.Text = dtCy.Rows[i]["CityName"].ToString();
+                listItem.Value = dtCy.Rows[i]["CityId"].ToString();
+                ddlCity.Items.Add(listItem);
+            }
+        }
+        
+        private bool IsUsorCanadianZipCode(string zipCode)
+        {
+            bool validZipCode = true;
+            if ((!Regex.Match(zipCode, _usZipRegEx).Success) && (!Regex.Match(zipCode, _caZipRegEx).Success))
+            {
+                validZipCode = false;
+            }
+            return validZipCode;
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            lblEmailId.Text = txtEmail.Value.ToString();
+            this.ModalPopupSuccess.Show();
+        }
+
+        protected void btnOK_Click(object sender, EventArgs e)
+        {
+            this.ModalPopupSuccess.Hide();
+            Response.Redirect("index.aspx");
+        }
+
+
+//        <script type="text/javascript">
+//    function validZip(zip)
+//{
+//if (zip.match(^\d{5}(-\d{4})?$)|(^[ABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Z]{1} *\d{1}[A-Z]{1}\d{1}$)) {
+//return true;
+//}
+//alert('*** Please enter a valid zip code.');
+//return false;
+//}
+//    </script>
+
+
+//<input name="ZIP" type="text" id="ZIP" size="6" maxlength="10" onChange="validZip('zip')"/>
     }
 }

@@ -45,4 +45,21 @@ namespace ServeAtDoorstepData
         public string CreditCardNumber { get; set; }
         public string CVCNumber { get; set; }
     }
+
+    public class CustomerMessageDetails
+    {
+        public int CustomerMessageId { get; set; }
+        public int QuiryId { get; set; }
+        public int RecCustomerId { get; set; }
+        public int SendVendorId { get; set; }
+        public int CategoryId { get; set; }
+        public string MessageTitle { get; set; }
+        public string Description { get; set; }
+        public string CreatedOn { get; set; }
+        public string UpdatedOn { get; set; }
+        public int CreatedBy { get; set; }
+        public string Status { get; set; }
+
+    }
+
 }

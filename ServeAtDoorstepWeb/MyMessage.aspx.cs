@@ -54,21 +54,6 @@ namespace ServeAtDoorstepWeb
 
         }
 
-        protected void lnbtnView_Click(object sender, EventArgs e)
-        {
-
-            LinkButton btnEdit = (LinkButton)sender;
-            GridViewRow Grow = (GridViewRow)btnEdit.NamingContainer;
-            //VendorMessageId
-
-            HiddenField firstCellText = (HiddenField)Grow.Cells[0].FindControl("hdnMessageId");
-            string s = firstCellText.Value.ToString();
-            pupMessage.ShowPopupWindow();
-            //string S = gvVendorMessage.DataKeys[].Value.ToString();
-
-            string sMId = gvVendorMessage.SelectedIndex.ToString();
-        }
-    
         protected void MycloseWindow(object sender, EventArgs e)
         {
 
@@ -76,16 +61,34 @@ namespace ServeAtDoorstepWeb
 
         protected void btnReply_Click(object sender, EventArgs e)
         {
-            pupMessage.HidePopupWindow();
+            ServeAtDoorstepData.CustomerMessageDetails objMsg = new CustomerMessageDetails();
+            objMsg.CustomerMessageId = 0;
+            objMsg.QuiryId = Convert.ToInt32(hdnQuoteId.Value.ToString());
+            objMsg.SendVendorId = Convert.ToInt32(hdnVendorId.Value.ToString());
+            objMsg.RecCustomerId = Convert.ToInt32(hdnCustomerId.Value.ToString());
+            objMsg.CategoryId = Convert.ToInt32(hdnCategoryId.Value.ToString());
+            objMsg.MessageTitle = "Re: "+lblMsgTitle.Text.Trim(); ;
+            objMsg.Description = txtReply.Text.Trim();
+            objMsg.Status="";
+
+            objService = new ServeAtDoorstepService();
+            int i = objService.AddCustomerMessage(objMsg);
+
+            txtReply.Text = "";
+
+            this.ModalPopupViewMessage.Hide();
         }
 
         protected void gvVendorMessage_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            //if (e.Row.RowType == DataControlRowType.DataRow)
-            //{
-            //    LinkButton lnk = e.Row.FindControl("lnbtnView") as LinkButton;
-            //    lnk.Click += new EventHandler(lnbtnView_Click);
-            //}
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                LinkButton lnk = e.Row.FindControl("lnbtnView") as LinkButton;
+                lnk.Click += new EventHandler(lnbtnView_Click);
+
+                Image img = e.Row.FindControl("imgCus") as Image;
+                img.ImageUrl = dt.Rows[e.Row.RowIndex]["ImagePath"].ToString();
+            }
         }
 
         protected void gvVendorMessage_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -102,15 +105,15 @@ namespace ServeAtDoorstepWeb
                 {
                     for (int i = 0; i < dtMsg.Rows.Count; i++)
                     {
-                        lblMsgTitle.Text = dtMsg.Rows[i]["MessageTitle"].ToString();
-                        lblMsgDesc.Text = dtMsg.Rows[i]["Description"].ToString();
-                        lblMsgDate.Text = dtMsg.Rows[i]["CreatedOn"].ToString();
-                        lblCustomerName.Text = dtMsg.Rows[i]["CustomerName"].ToString();
-                        lblCategory.Text = dtMsg.Rows[i]["CategoryName"].ToString();
+                        //lblMsgTitle.Text = dtMsg.Rows[i]["MessageTitle"].ToString();
+                        //lblMsgDesc.Text = dtMsg.Rows[i]["Description"].ToString();
+                        //lblMsgDate.Text = dtMsg.Rows[i]["CreatedOn"].ToString();
+                        //lblCustomerName.Text = dtMsg.Rows[i]["CustomerName"].ToString();
+                        //lblCategory.Text = dtMsg.Rows[i]["CategoryName"].ToString();
                     }
                 }
 
-                pupMessage.ShowPopupWindow();
+                //pupMessage.ShowPopupWindow();
             }
         }
 
@@ -121,6 +124,34 @@ namespace ServeAtDoorstepWeb
                 var lnbtnView = (LinkButton)e.Row.FindControl("lnbtnView");
                 lnbtnView.CommandArgument = e.Row.RowIndex.ToString();
             }
+        }
+
+        protected void lnbtnView_Click(object sender, EventArgs e)
+        {
+            LinkButton btndetails = sender as LinkButton;
+            GridViewRow gvrow = (GridViewRow)btndetails.NamingContainer;
+            string sID = gvVendorMessage.DataKeys[gvrow.RowIndex].Value.ToString();
+
+
+            ServeAtDoorstepService objService = new ServeAtDoorstepService();
+            DataTable dtMsg = objService.SelectVenMessageById(Convert.ToInt32(sID));
+
+            if (dtMsg.Rows.Count > 0)
+            {
+                hdnCategoryId.Value = dtMsg.Rows[0]["CategoryId"].ToString();
+                hdnCustomerId.Value = dtMsg.Rows[0]["SendCustomerId"].ToString();
+                hdnQuoteId.Value = dtMsg.Rows[0]["QuoteId"].ToString();
+                hdnVendorId.Value = dtMsg.Rows[0]["VendorID"].ToString();
+                lblMsgTitle.Text = dtMsg.Rows[0]["MessageTitle"].ToString();
+                lblMsgDesc.Text = dtMsg.Rows[0]["Description"].ToString();
+                lblMsgDate.Text = dtMsg.Rows[0]["CreatedOn"].ToString();
+                lblCustomerName.Text = dtMsg.Rows[0]["CustomerName"].ToString();
+                lblCategory.Text = dtMsg.Rows[0]["CategoryName"].ToString();
+            }
+
+
+            this.ModalPopupViewMessage.Show();
+
         }
     }
 }

@@ -3,7 +3,7 @@
 <asp:Content ID="co1" ContentPlaceHolderID="MainContent" runat="server">
 
     <div id="MainSection">
-            <div id="MainCategory">
+            <div id="divCategory" class="MainCategory" runat="server">
             <br>
             <strong><label id="currentLocation" runat="server"> / Current Location:</label></strong>
 	        <small style="color:#C03;">&nbsp;&nbsp;&nbsp;[Change]</small>
@@ -12,7 +12,7 @@
             </div>
             <div id="MainItem">
                 <div style="text-align:left; padding-top:5em">
-                <h1>Yard e-Cart contact</h1>
+                <h1>Serve at Doorstep contact</h1>
                 </div>
                 <section class="contact"  style="text-align:left;padding-left:5EM">
                     <header>

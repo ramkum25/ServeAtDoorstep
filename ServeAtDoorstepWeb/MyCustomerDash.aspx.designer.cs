@@ -22,22 +22,40 @@ namespace ServeAtDoorstepWeb {
         protected global::System.Web.UI.WebControls.HyperLink hlNewInquiry;
         
         /// <summary>
-        /// LinkButton1 control.
+        /// lnkLiveQuiry control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
+        protected global::System.Web.UI.WebControls.LinkButton lnkLiveQuiry;
         
         /// <summary>
-        /// LinkButton2 control.
+        /// lnkLiveQuiryCnt control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton2;
+        protected global::System.Web.UI.WebControls.Label lnkLiveQuiryCnt;
+        
+        /// <summary>
+        /// lnkQuiryRespond control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkQuiryRespond;
+        
+        /// <summary>
+        /// lnkQuiryRespondCnt control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lnkQuiryRespondCnt;
         
         /// <summary>
         /// LinkButton3 control.
@@ -49,6 +67,15 @@ namespace ServeAtDoorstepWeb {
         protected global::System.Web.UI.WebControls.LinkButton LinkButton3;
         
         /// <summary>
+        /// Label4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label4;
+        
+        /// <summary>
         /// LinkButton5 control.
         /// </summary>
         /// <remarks>
@@ -56,6 +83,15 @@ namespace ServeAtDoorstepWeb {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton LinkButton5;
+        
+        /// <summary>
+        /// Label3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label3;
         
         /// <summary>
         /// LinkButton4 control.
@@ -67,6 +103,15 @@ namespace ServeAtDoorstepWeb {
         protected global::System.Web.UI.WebControls.LinkButton LinkButton4;
         
         /// <summary>
+        /// Label2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label2;
+        
+        /// <summary>
         /// lnkLiveInquiry control.
         /// </summary>
         /// <remarks>
@@ -74,6 +119,15 @@ namespace ServeAtDoorstepWeb {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkLiveInquiry;
+        
+        /// <summary>
+        /// Label1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
         /// HyperLink1 control.
@@ -94,6 +148,15 @@ namespace ServeAtDoorstepWeb {
         protected global::System.Web.UI.WebControls.LinkButton LinkButton6;
         
         /// <summary>
+        /// Label6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label6;
+        
+        /// <summary>
         /// LinkButton7 control.
         /// </summary>
         /// <remarks>
@@ -101,6 +164,15 @@ namespace ServeAtDoorstepWeb {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton LinkButton7;
+        
+        /// <summary>
+        /// Label7 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label7;
         
         /// <summary>
         /// LinkButton8 control.
@@ -112,6 +184,15 @@ namespace ServeAtDoorstepWeb {
         protected global::System.Web.UI.WebControls.LinkButton LinkButton8;
         
         /// <summary>
+        /// Label8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label8;
+        
+        /// <summary>
         /// LinkButton9 control.
         /// </summary>
         /// <remarks>
@@ -121,6 +202,15 @@ namespace ServeAtDoorstepWeb {
         protected global::System.Web.UI.WebControls.LinkButton LinkButton9;
         
         /// <summary>
+        /// Label9 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label9;
+        
+        /// <summary>
         /// LinkButton10 control.
         /// </summary>
         /// <remarks>
@@ -128,6 +218,15 @@ namespace ServeAtDoorstepWeb {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton LinkButton10;
+        
+        /// <summary>
+        /// Label10 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label10;
         
         /// <summary>
         /// LinkButton11 control.

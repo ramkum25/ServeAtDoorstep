@@ -6,23 +6,23 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <link href='http://fonts.googleapis.com/css?family=Verdana' rel='stylesheet' type='text/css'>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='http://fonts.googleapis.com/css?family=Verdana' rel='stylesheet' type='text/css' />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Serve at Door Step</title>
     
-    <link href="css/boilerplate.css" rel="stylesheet" type="text/css">
-    <link href="css/newServeStyle.css" rel="stylesheet" type="text/css">
+    <link href="css/boilerplate.css" rel="stylesheet" type="text/css" />
+    <link href="css/newServeStyle.css" rel="stylesheet" type="text/css" />
     <link href="css/horimenu/dropdown/dropdown.css" media="screen" rel="stylesheet" type="text/css" />
     <link href="css/horimenu/dropdown/dropdown.vertical.rtl.css" media="screen" rel="stylesheet" type="text/css" />
     <link href="css/horimenu/dropdown/themes/default/default.css" media="screen" rel="stylesheet" type="text/css" />
-    <link href="css/ServeAtDoor.css" rel="stylesheet" type="text/css">
+    <link href="css/ServeAtDoor.css" rel="stylesheet" type="text/css" />
     <style type="text/css" media="screen">
 /**************** menu coding *****************/
 #menu {
 width: 100%;
-background: #aed586;
-float: left;
+background: none;
+float: right;
 }
 
 #menu ul {
@@ -30,8 +30,9 @@ list-style: none;
 font-size:16px;
 margin: 0;
 padding: 0;
-width: 15em;
-float: left;
+width: 10em;
+float: right;
+
 }
 
 #menu a, #menu h2 {
@@ -46,20 +47,20 @@ padding: 2px 3px;
 }
 
 #menu h2 {
-color: #fff;
-background: #b93511;
+color: black;
+background: none;
 text-transform: uppercase;
 }
 
 #menu a {
-color: #000;
-background: #b93511;
+color: black;
+background: #bbb;
 text-decoration: none;
 }
 
 #menu a:hover {
 color: #a00;
-background: #fff;
+background: #b6ff00;
 }
 
 #menu li {position: relative;}
@@ -91,56 +92,67 @@ div#menu ul ul ul li:hover ul
 </style>
     <%--<img src="image/ServeAtDoor.png" height="150px" width="350px" />--%>
     <%--<script type="text/javascript" src="js/serveMenuList.js"></script>--%> 
+    <script type="text/javascript" src="js/jquery.js"></script> 
+    <script type="text/javascript" src="js/jquery-latest.js"></script> 
+    <script type="text/javascript" src="js/jquery-2.0.2.min.js"></script> 
+    <script type="text/javascript" src="js/jquery-2.0.2.js"></script> 
 </head>
 <body>
     <form id="form1" runat="server" style="">
         <div class="gridContainer clearfix">
 
-        <div id="HeaderSection">
+            <div id="HeaderSection">
                       
-        <div id="TopLinks">
-            <ul id="nav" class="dropdown dropdown-horizontal">
-                <script src="js/menuTop.js" type="text/javascript"></script>
-            </ul>
-        </div>
-            <div style="background-color:#aed586;">
-                <table>
-            <tr style="height:90px;">
-                <td style="text-align:center;padding-left:75px;"><h2>Serve At Doorstep</h2></td>
-                <td>&nbsp;</td>
-            </tr>
-        </table>
-        <%--<script type="text/javascript" src="js/serveMenuList.js"></script>--%>
-        </div>
-        <%--<div id="HeaderLogo"><a href="index.aspx"><img src="Content/images/Yardecart.png" alt="Logo" ></a></div>--%>
-      </div>
+            <div id="TopLinks">
+                <ul id="nav" class="dropdown dropdown-horizontal">
+                    <script src="js/menuTop.js" type="text/javascript"></script>
+                </ul>
+            </div>
+                <%--<div style="background-color:none;">
+                    <table>
+                <tr style="height:90px;">
+                    <td style="text-align:center;padding-left:75px;"><h2>Serve At Doorstep</h2></td>
+                    <td>&nbsp;</td>
+                </tr>
+            </table>--%>
+                <div id="HeaderLogo"><a href="index.aspx"><img src="image/HomeServices.jpg" alt="Logo" /></a></div>
+            <div id="HeaderSearch">
+            <input name="SearchString" id="SearchBox" type="text" value="Search String" size="25"/>&nbsp;&nbsp;&nbsp;
+            <input name="SearchPlace" id="SearchBoxPlace" type="text" value="Place"  size="12"/>&nbsp;&nbsp;&nbsp;
+            <input name="SearchButton" id="SearchButton" type="button" value="Search Vendor"/></div>
+            <div id="HeaderPost">&nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:Button ID="btnPostButton" runat="server" Text="Post Inquiry" CssClass="PostButton" OnClick="btnPostButton_Click" />
+                <%--<input class="PostButton" id="btnPostButton" runat="server" name="btnPostButton" type="button" value="Post Inquiry" onclick="" />--%></div>
+          </div>
         
-        <div id="MainSection">
-            <asp:Label ID="lblWelcomeMsg" runat="server" Text="Welcome Message" Font-Bold="true" Visible="false"></asp:Label>
-            <asp:LinkButton ID="lblDashboard" OnClick="lblDashboard_Click" runat="server" Text="(My Dashboard)" Font-Bold="true" ForeColor="#3366ff" Visible="false"></asp:LinkButton>
-            <ul id="nav" class="dropdown ">
-                <script src="js/menuAccount.js" type="text/javascript"></script>
-            </ul>
-            <asp:ContentPlaceHolder ID="MainContent" runat="server">
-            </asp:ContentPlaceHolder>
-        </div>
-        <p>&nbsp;</p>
-        <p>&nbsp;</p>
-        <p>&nbsp;</p>
-        <%--<div>
-            <uc2:Footer ID="Footer1" runat="server" />
-        </div>--%>
-        <div id="FooterSection">Copyright 2013, All Rights Reserved.</div>
-         
-      </div>
+            <div id="MainSection">
+                <table>
+                    <tr>
+                        <td style="width:300px;">
+                            <asp:Label ID="lblWelcomeMsg" runat="server" Text="Welcome Message" Font-Bold="true" Visible="false"></asp:Label>
+                            <asp:LinkButton ID="lblDashboard" OnClick="lblDashboard_Click" runat="server" Text="(My Dashboard)" Font-Bold="true" ForeColor="#3366ff" Visible="false"></asp:LinkButton>
+                        </td>
+                        <td style="width:900px;">
+                            <script src="js/menuAccount.js" type="text/javascript"></script>
+                        </td>
+                    </tr>
+                </table>
+                <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
 
+            <div id="FooterSection">Copyright 2013, All Rights Reserved.</div>
+        </div>
     </form>
 </body>
 </html>
 
 
 <script type="text/javascript">
-    var ishide = "<%= isShowHideControl %>";
+    var ishide = '<%= isShowHideControl %>';
     if (ishide == "3") {
         document.getElementById("aboutid").style.display = "block";
         document.getElementById("helpid").style.display = "block";
@@ -148,9 +160,14 @@ div#menu ul ul ul li:hover ul
         document.getElementById("signoutid").style.display = "block";
         document.getElementById("signupid").style.display = "none";
 
-        // second menu
-        document.getElementById("myaccountid").style.display = "block";
-
+        //// second menu
+        document.getElementById("profileCusliid").style.display = "none";
+        document.getElementById("profileVenliid").style.display = "none";
+        document.getElementById("accountulid").style.display = "block";
+        document.getElementById("messageCusliid").style.display = "none";
+        document.getElementById("messageVenliid").style.display = "none";
+        document.getElementById("adminulid").style.display = "block";
+        
     }
     else if (ishide == "2") {
         document.getElementById("aboutid").style.display = "block";
@@ -160,7 +177,12 @@ div#menu ul ul ul li:hover ul
         document.getElementById("signupid").style.display = "none";
 
         // second menu
-        document.getElementById("myaccountid").style.display = "block";
+        document.getElementById("profileCusliid").style.display = "none";
+        document.getElementById("profileVenliid").style.display = "block";
+        document.getElementById("accountulid").style.display = "block";
+        document.getElementById("messageCusliid").style.display = "none";
+        document.getElementById("messageVenliid").style.display = "block";
+        document.getElementById("adminulid").style.display = "none";
     }
     else if (ishide == "1") {
         document.getElementById("aboutid").style.display = "block";
@@ -170,7 +192,13 @@ div#menu ul ul ul li:hover ul
         document.getElementById("signupid").style.display = "none";
 
         // second menu
-        document.getElementById("myaccountid").style.display = "block";
+        document.getElementById("profileCusliid").style.display = "block";
+        document.getElementById("profileVenliid").style.display = "none";
+
+        document.getElementById("accountulid").style.display = "block";
+        document.getElementById("messageCusliid").style.display = "block";
+        document.getElementById("messageVenliid").style.display = "none";
+        document.getElementById("adminulid").style.display = "none";
     }
     else if (ishide == "0") {
         document.getElementById("aboutid").style.display = "block";
@@ -180,6 +208,10 @@ div#menu ul ul ul li:hover ul
         document.getElementById("signupid").style.display = "block";
 
         // second menu
-        document.getElementById("myaccountid").style.display = "none";
+        document.getElementById("profileCusliid").style.display = "none";
+        document.getElementById("profileVenliid").style.display = "none";
+
+        document.getElementById("accountulid").style.display = "none";
+        document.getElementById("adminulid").style.display = "none";
     }
 </script>

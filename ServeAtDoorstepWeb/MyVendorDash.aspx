@@ -3,19 +3,16 @@
 <asp:Content runat="server" ID="Content1" ContentPlaceHolderID="MainContent">
 
     <div style="height: 500px" >
-        
+        <div style="background-color: gray; height: 35px; font-family: Arial; font-size: 18px; color: white;text-align:left;vertical-align:central;
+                    padding-left:25px;padding-top:10px; font-style:normal;font-weight:bold;">
+            My Dashboard
+        </div>
         <table style="width:100%;">
             <tr>
                 <td style="height: 25px; width: 209px"></td>
                 <td style="height: 25px"></td>
                 <td style="height: 25px"></td>
                 <td style="height: 25px"></td>
-            </tr>
-            <tr>
-                <td style="width: 200px; height: 50px"></td>
-                <td style="height: 50px"></td>
-                <td style="height: 50px"></td>
-                <td style="height: 50px"></td>
             </tr>
             <tr>
                 <td colspan="4">
@@ -34,10 +31,14 @@
                                     <tr style="width:100%;">
                                         <td style="padding:8px 8px 8px 8px;">
                                             <div style="border:thin solid black; border-radius:7px 7px 7px 7px; padding:10px 10px 10px 10px;">
-                                                <asp:LinkButton ID="LinkButton1" runat="server" Text="Live Inquiry" Height="20px"></asp:LinkButton><br />
-                                                <asp:LinkButton ID="LinkButton2" runat="server" Text="Inquiry responded" Height="20px"></asp:LinkButton><br />
-                                                <asp:LinkButton ID="LinkButton3" runat="server" Text="Inquiry not responded" Height="20px"></asp:LinkButton><br />
-                                                <asp:LinkButton ID="LinkButton5" runat="server" Text="Communication with Customer" Height="20px"></asp:LinkButton><br />
+                                                <asp:LinkButton ID="lnkLiveQuiry" runat="server" Text="Live Inquiry" Height="20px" OnClick="lnkLiveQuiry_Click"></asp:LinkButton>
+                                                <asp:Label ID="lnkLiveQuiryCnt" runat="server" Text="(0)" Height="20px" ForeColor="#3366ff"></asp:Label><br />
+                                                <asp:LinkButton ID="lnkQuiryRespond" runat="server" Text="Inquiry responded" Height="20px" OnClick="lnkQuiryRespond_Click"></asp:LinkButton>
+                                                <asp:Label ID="lnkQuiryRespondCnt" runat="server" Text="(0)" Height="20px" ForeColor="#3366ff"></asp:Label><br />
+                                                <asp:LinkButton ID="LinkButton3" runat="server" Text="Inquiry not responded" Height="20px"></asp:LinkButton>
+                                                <asp:Label ID="Label2" runat="server" Text="(0)" Height="20px" ForeColor="#3366ff"></asp:Label><br />
+                                                <asp:LinkButton ID="LinkButton5" runat="server" Text="Communication with Customer" Height="20px"></asp:LinkButton>
+                                                <asp:Label ID="Label3" runat="server" Text="(0)" Height="20px" ForeColor="#3366ff"></asp:Label><br />
                                                 <asp:LinkButton ID="LinkButton4" runat="server" Text="" Height="20px"></asp:LinkButton><br />
                                                 <asp:LinkButton ID="lnkLiveInquiry" runat="server" Text="" Height="20px"></asp:LinkButton><br />
                                             </div>

@@ -20,6 +20,34 @@ namespace ServeAtDoorstepServiceApp
     {
         DALComponent objDALComponent = new DALComponent();
 
+        #region .. ADMIN ..
+
+        public int LoginAdmin(LoginDetails loginDetails)
+        {
+            try
+            {
+                DALComponent objDALLog = new DALComponent();
+                objDALLog.SetParameters("@loginName", SqlDbType.VarChar, 50, loginDetails.UserName);
+                objDALLog.SetParameters("@loginPassword", SqlDbType.VarChar, 50, loginDetails.UserPassword);
+                objDALLog.SqlCommandText = "[ValidateAdmin]";
+                object y = objDALLog.SelectRecordValue();
+                if (int.Parse(y.ToString()) > 0)
+                    return int.Parse(y.ToString());
+                else
+                    return 0;
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new ApplicationException(sqlEx.Message.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error=" + ex.Message.ToString());
+            }
+        }
+
+        #endregion
+
         #region .. CUSTOMER REGISTER ..
 
         public int AddCustomerRegister(CustomerDetails customerDetails)
@@ -144,7 +172,7 @@ namespace ServeAtDoorstepServiceApp
             }
             catch (SqlException sqlEx)
             {
-                throw new ApplicationException("Data error=" + sqlEx.Message.ToString());
+                throw new ApplicationException(sqlEx.Message.ToString());
             }
             catch (Exception ex)
             {
@@ -178,7 +206,7 @@ namespace ServeAtDoorstepServiceApp
             {
                 DALComponent objDALCon = new DALComponent();
                 objDALCon.SetParameters("@email", SqlDbType.VarChar, 50, cusEmail);
-                objDALCon.SqlCommandText = "SelectUserByEmail";
+                objDALCon.SqlCommandText = "[SelectCustomerByEmail]";
                 return objDALCon.SelectRecord();
             }
             catch (SqlException sqlEx)
@@ -191,6 +219,180 @@ namespace ServeAtDoorstepServiceApp
             }
         }
 
+        public void UpdateCustomerImage(CustomerDetails cusDetails)
+        {
+            try
+            {
+                DALComponent objDAL = new DALComponent();
+                objDAL.SetParameters("@customerId", SqlDbType.Int, 4, cusDetails.CustomerID);
+                objDAL.SetParameters("@imagepath", SqlDbType.VarChar, 100, cusDetails.ImagePath);
+                objDAL.SqlCommandText = "[UpdateCustomerImage]";
+                int x = objDAL.UpdateRecord();
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new ApplicationException("Data error=" + sqlEx.Message.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error=" + ex.Message.ToString());
+            }
+        }
+
+        public void UpdateCustomerPassword(CustomerDetails cusDetails)
+        {
+            try
+            {
+                DALComponent objDAL = new DALComponent();
+                objDAL.SetParameters("@customerId", SqlDbType.Int, 4, cusDetails.CustomerID);
+                objDAL.SetParameters("@password", SqlDbType.VarChar, 100, cusDetails.LoginPassword);
+                objDAL.SqlCommandText = "[UpdateCustomerPassword]";
+                int x = objDAL.UpdateRecord();
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new ApplicationException("Data error=" + sqlEx.Message.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error=" + ex.Message.ToString());
+            }
+        }
+
+        public void UpdateCustomerEmail(CustomerDetails cusDetails)
+        {
+            try
+            {
+                DALComponent objDAL = new DALComponent();
+                objDAL.SetParameters("@customerId", SqlDbType.Int, 4, cusDetails.CustomerID);
+                objDAL.SetParameters("@email", SqlDbType.VarChar, 100, cusDetails.Email);
+                objDAL.SqlCommandText = "[UpdateCustomerEmail]";
+                int x = objDAL.UpdateRecord();
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new ApplicationException("Data error=" + sqlEx.Message.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error=" + ex.Message.ToString());
+            }
+        }
+
+        #endregion
+
+        #region .. CUSTOMER MESSAGE ..
+
+        public int AddCustomerMessage(CustomerMessageDetails cusMessageDetails)
+        {
+            try
+            {
+                DALComponent objDALRegister = new DALComponent();
+                objDALRegister.SetParameters("@CustomerMessageId", SqlDbType.Int, 4, cusMessageDetails.CustomerMessageId);
+                objDALRegister.SetParameters("@QuiryId", SqlDbType.Int, 4, cusMessageDetails.QuiryId);
+                objDALRegister.SetParameters("@RecCustomerId", SqlDbType.Int, 4, cusMessageDetails.RecCustomerId);
+                objDALRegister.SetParameters("@SendVendorId", SqlDbType.Int, 4, cusMessageDetails.SendVendorId);
+                objDALRegister.SetParameters("@CategoryId", SqlDbType.Int, 4, cusMessageDetails.CategoryId);
+                objDALRegister.SetParameters("@MessageTitle", SqlDbType.VarChar, 100, cusMessageDetails.MessageTitle);
+                objDALRegister.SetParameters("@Description", SqlDbType.VarChar, 1000, cusMessageDetails.Description);
+                objDALRegister.SetParameters("@Status", SqlDbType.VarChar, 10, cusMessageDetails.Status);
+                objDALRegister.SetParameters("@idvalue", SqlDbType.Int, true);
+                objDALRegister.SqlCommandText = "[CreateCustomerMessage]";
+                int x = objDALRegister.CreateRecord();
+                object y = objDALRegister.GetParameters("@idvalue");
+                if (cusMessageDetails.CustomerMessageId != 0)
+                    return cusMessageDetails.CustomerMessageId;
+                else
+                    return Int32.Parse(y.ToString());
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new ApplicationException("Data error=" + sqlEx.Message.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error=" + ex.Message.ToString());
+            }
+        }
+
+        public DataTable SelectCusMessageById(int intMsgId)
+        {
+            try
+            {
+                DALComponent objDALVenMsg = new DALComponent();
+                objDALVenMsg.SetParameters("@msgid", SqlDbType.Int, 4, intMsgId);
+                objDALVenMsg.SqlCommandText = "SelectCusMessageById";
+                return objDALVenMsg.SelectRecord();
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new ApplicationException("Data error=" + sqlEx.Message.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error=" + ex.Message.ToString());
+            }
+        }
+        #endregion
+
+        #region .. SELECT CUSTOMER ..
+
+        public DataTable GetCustomerById(int intCustomerId)
+        {
+            try
+            {
+                DALComponent objDalComp = new DALComponent();
+                objDalComp.SetParameters("@customerid", SqlDbType.Int, 4, intCustomerId);
+                objDalComp.SqlCommandText = "[GetCustomerById]";
+                return objDalComp.SelectRecord();
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new ApplicationException("Data error=" + sqlEx.Message.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error=" + ex.Message.ToString());
+            }
+        }
+
+        public DataTable SelectMessageByCustomerId(int customerId)
+        {
+            try
+            {
+                DALComponent objDalComp = new DALComponent();
+                objDalComp.SetParameters("@customerid", SqlDbType.Int, 4, customerId);
+                objDalComp.SqlCommandText = "[SelectMessageByCustomerId]";
+                return objDalComp.SelectRecord();
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new ApplicationException("Data error=" + sqlEx.Message.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error=" + ex.Message.ToString());
+            }
+        }
+        
+        public DataTable GetCustomerCountById(int intCustomerId)
+        {
+            try
+            {
+                DALComponent objDalComp = new DALComponent();
+                objDalComp.SetParameters("@customerid", SqlDbType.Int, 4, intCustomerId);
+                objDalComp.SqlCommandText = "[GetCustomerCount]";
+                return objDalComp.SelectRecord();
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new ApplicationException("Data error=" + sqlEx.Message.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error=" + ex.Message.ToString());
+            }
+        }
 
         #endregion
 
@@ -233,6 +435,65 @@ namespace ServeAtDoorstepServiceApp
                 object y = objDALRegister.GetParameters("@idvalue");
                 if (vendorDetails.VendorID != 0)
                     return vendorDetails.VendorID;
+                else
+                    return Int32.Parse(y.ToString());
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new ApplicationException("Data error=" + sqlEx.Message.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error=" + ex.Message.ToString());
+            }
+        }
+
+        public int AddVendorService(VendorServiceDetails vendorServDetails)
+        {
+            try
+            {
+                DALComponent objDALRegister = new DALComponent();
+                objDALRegister.SetParameters("@VendorServiceId", SqlDbType.Int, 4, vendorServDetails.VendorServiceId);
+                objDALRegister.SetParameters("@VendorId", SqlDbType.Int, 4, vendorServDetails.VendorId);
+                objDALRegister.SetParameters("@CategoryId", SqlDbType.Int, 4, vendorServDetails.CategoryId);
+                objDALRegister.SetParameters("@ServiceId", SqlDbType.Int, 4, vendorServDetails.ServiceId);
+                objDALRegister.SetParameters("@Status", SqlDbType.VarChar, 25, vendorServDetails.Status);
+                objDALRegister.SetParameters("@idvalue", SqlDbType.Int, true);
+                objDALRegister.SqlCommandText = "[CreateVendorService]";
+                int x = objDALRegister.CreateRecord();
+                object y = objDALRegister.GetParameters("@idvalue");
+                if (vendorServDetails.VendorServiceId != 0)
+                    return vendorServDetails.VendorServiceId;
+                else
+                    return Int32.Parse(y.ToString());
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new ApplicationException("Data error=" + sqlEx.Message.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error=" + ex.Message.ToString());
+            }
+        }
+
+        public int AddVendorArea(VendorAreaDetails vendorAreaDetails)
+        {
+            try
+            {
+                DALComponent objDALArea = new DALComponent();
+                objDALArea.SetParameters("@vendorAreaId", SqlDbType.Int, 4, vendorAreaDetails.VendorAreaID);
+                objDALArea.SetParameters("@vendorId", SqlDbType.Int, 4, vendorAreaDetails.VendorId);
+                objDALArea.SetParameters("@city", SqlDbType.VarChar, 50, vendorAreaDetails.VACityName);
+                objDALArea.SetParameters("@state", SqlDbType.VarChar, 50, vendorAreaDetails.VAState);
+                objDALArea.SetParameters("@zipcode", SqlDbType.VarChar, 50, vendorAreaDetails.VAZipcode);
+                objDALArea.SetParameters("@distance", SqlDbType.VarChar, 50, vendorAreaDetails.VADistance);
+                objDALArea.SetParameters("@idvalue", SqlDbType.Int, true);
+                objDALArea.SqlCommandText = "[CreateVendorArea]";
+                int x = objDALArea.CreateRecord();
+                object y = objDALArea.GetParameters("@idvalue");
+                if (vendorAreaDetails.VendorAreaID != 0)
+                    return vendorAreaDetails.VendorAreaID;
                 else
                     return Int32.Parse(y.ToString());
             }
@@ -299,7 +560,7 @@ namespace ServeAtDoorstepServiceApp
             }
             catch (SqlException sqlEx)
             {
-                throw new ApplicationException("Data error=" + sqlEx.Message.ToString());
+                throw new ApplicationException(sqlEx.Message.ToString());
             }
             catch (Exception ex)
             {
@@ -333,8 +594,48 @@ namespace ServeAtDoorstepServiceApp
             {
                 DALComponent objDALCon = new DALComponent();
                 objDALCon.SetParameters("@email", SqlDbType.VarChar, 50, venEmail);
-                objDALCon.SqlCommandText = "SelectUserByEmail";
+                objDALCon.SqlCommandText = "[SelectVendorByEmail]";
                 return objDALCon.SelectRecord();
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new ApplicationException("Data error=" + sqlEx.Message.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error=" + ex.Message.ToString());
+            }
+        }
+
+        public void UpdateVendorPassword(VendorDetails venDetails)
+        {
+            try
+            {
+                DALComponent objDAL = new DALComponent();
+                objDAL.SetParameters("@vendorId", SqlDbType.Int, 4, venDetails.VendorID);
+                objDAL.SetParameters("@password", SqlDbType.VarChar, 100, venDetails.LoginPassword);
+                objDAL.SqlCommandText = "[UpdateVendorPassword]";
+                int x = objDAL.UpdateRecord();
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new ApplicationException("Data error=" + sqlEx.Message.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error=" + ex.Message.ToString());
+            }
+        }
+
+        public void UpdateVendorEmail(VendorDetails venDetails)
+        {
+            try
+            {
+                DALComponent objDAL = new DALComponent();
+                objDAL.SetParameters("@vendorId", SqlDbType.Int, 4, venDetails.VendorID);
+                objDAL.SetParameters("@email", SqlDbType.VarChar, 100, venDetails.VendorEmail);
+                objDAL.SqlCommandText = "[UpdateVendorEmail]";
+                int x = objDAL.UpdateRecord();
             }
             catch (SqlException sqlEx)
             {
@@ -356,12 +657,13 @@ namespace ServeAtDoorstepServiceApp
             {
                 DALComponent objDALVenMsg = new DALComponent();
                 objDALVenMsg.SetParameters("@VendorMessageId", SqlDbType.Int, 4, vendorMsgDetails.VendorMessageId);
-                objDALVenMsg.SetParameters("@QuoteId", SqlDbType.Int, 4, vendorMsgDetails.QuoteId);
+                objDALVenMsg.SetParameters("@QuiryId", SqlDbType.Int, 4, vendorMsgDetails.QuiryId);
                 objDALVenMsg.SetParameters("@SendCustomerId", SqlDbType.Int, 4, vendorMsgDetails.SendCustomerId);
                 objDALVenMsg.SetParameters("@VendorId", SqlDbType.Int, 4, vendorMsgDetails.VendorId);
                 objDALVenMsg.SetParameters("@CategoryId", SqlDbType.Int, 4, vendorMsgDetails.CategoryId);
                 objDALVenMsg.SetParameters("@MessageTitle", SqlDbType.VarChar, 100, vendorMsgDetails.MessageTitle);
                 objDALVenMsg.SetParameters("@Description", SqlDbType.VarChar, 1000, vendorMsgDetails.Description);
+                objDALVenMsg.SetParameters("@Status", SqlDbType.VarChar, 10, vendorMsgDetails.Status);
                 objDALVenMsg.SetParameters("@idvalue", SqlDbType.Int, true);
                 objDALVenMsg.SqlCommandText = "[CreateVendorMessage]";
                 int x = objDALVenMsg.CreateRecord();
@@ -399,11 +701,47 @@ namespace ServeAtDoorstepServiceApp
                 throw new ApplicationException("Error=" + ex.Message.ToString());
             }
         }
-         
 
+        public DataTable SelectResMsgByVenId(int vendorId)
+        {
+            try
+            {
+                DALComponent objDALVenMsg = new DALComponent();
+                objDALVenMsg.SetParameters("@vendorid", SqlDbType.Int, 4, vendorId);
+                objDALVenMsg.SqlCommandText = "SelectResMsgByVenId";
+                return objDALVenMsg.SelectRecord();
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new ApplicationException("Data error=" + sqlEx.Message.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error=" + ex.Message.ToString());
+            }
+        }
         #endregion
 
         #region .. SELECT VENDOR ..
+
+        public DataTable GetVendorById(int intVendorId)
+        {
+            try
+            {
+                DALComponent objDalComp = new DALComponent();
+                objDalComp.SetParameters("@vendorid", SqlDbType.Int, 4, intVendorId);
+                objDalComp.SqlCommandText = "[GetVendorById]";
+                return objDalComp.SelectRecord();
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new ApplicationException("Data error=" + sqlEx.Message.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error=" + ex.Message.ToString());
+            }
+        }
 
         public DataTable SelectVendorByCategory(int categoryId)
         {
@@ -412,6 +750,25 @@ namespace ServeAtDoorstepServiceApp
                 DALComponent objDalComp = new DALComponent();
                 objDalComp.SetParameters("@cateid", SqlDbType.Int, 4, categoryId);
                 objDalComp.SqlCommandText = "[SelectVendorByCatid]";
+                return objDalComp.SelectRecord();
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new ApplicationException("Data error=" + sqlEx.Message.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error=" + ex.Message.ToString());
+            }
+        }
+
+        public DataTable SelectVendorByService(int serviceId)
+        {
+            try
+            {
+                DALComponent objDalComp = new DALComponent();
+                objDalComp.SetParameters("@serviceid", SqlDbType.Int, 4, serviceId);
+                objDalComp.SqlCommandText = "[SelectVendorByServId]";
                 return objDalComp.SelectRecord();
             }
             catch (SqlException sqlEx)
@@ -443,60 +800,66 @@ namespace ServeAtDoorstepServiceApp
             }
         }
 
+        public DataTable GetVendorCountById(int intVendorId)
+        {
+            try
+            {
+                DALComponent objDalComp = new DALComponent();
+                objDalComp.SetParameters("@vendorid", SqlDbType.Int, 4, intVendorId);
+                objDalComp.SqlCommandText = "[GetVendorCount]";
+                return objDalComp.SelectRecord();
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new ApplicationException("Data error=" + sqlEx.Message.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error=" + ex.Message.ToString());
+            }
+        }
+
+        public DataTable SelectAreaByVendorId(int vendorId)
+        {
+            try
+            {
+                DALComponent objDalComp = new DALComponent();
+                objDalComp.SetParameters("@vendorid", SqlDbType.Int, 4, vendorId);
+                objDalComp.SqlCommandText = "[SelectAreaByVendorId]";
+                return objDalComp.SelectRecord();
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new ApplicationException("Data error=" + sqlEx.Message.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error=" + ex.Message.ToString());
+            }
+        }
+
+        public DataTable GetCategoryByVendorId(int intVendorId)
+        {
+            try
+            {
+                DALComponent objDalComp = new DALComponent();
+                objDalComp.SetParameters("@vendorId", SqlDbType.Int, 4, intVendorId);
+                objDalComp.SqlCommandText = "[GetCategoryByVendorId]";
+                return objDalComp.SelectRecord();
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new ApplicationException("Data error=" + sqlEx.Message.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error=" + ex.Message.ToString());
+            }
+        }
+
         #endregion
 
         #region .. CITY, STATE & COUNTRY ..
-
-        public DataTable SelectAllCategory()
-        {
-            try
-            {
-                objDALComponent.SqlCommandText = "SelectCategory";
-                return objDALComponent.SelectRecord();
-            }
-            catch (SqlException sqlEx)
-            {
-                throw new ApplicationException("Data error=" + sqlEx.Message.ToString());
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException("Error=" + ex.Message.ToString());
-            }
-        }
-
-        public DataTable SelectAllMembership()
-        {
-            try
-            {
-                objDALComponent.SqlCommandText = "SelectMembership";
-                return objDALComponent.SelectRecord();
-            }
-            catch (SqlException sqlEx)
-            {
-                throw new ApplicationException("Data error=" + sqlEx.Message.ToString());
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException("Error=" + ex.Message.ToString());
-            }
-        }
-
-        public DataTable SelectAllService()
-        {
-            try
-            {
-                objDALComponent.SqlCommandText = "SelectService";
-                return objDALComponent.SelectRecord();
-            }
-            catch (SqlException sqlEx)
-            {
-                throw new ApplicationException("Data error=" + sqlEx.Message.ToString());
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException("Error=" + ex.Message.ToString());
-            }
-        }
 
         public DataTable SelectAllCity()
         {
@@ -549,9 +912,146 @@ namespace ServeAtDoorstepServiceApp
             }
         }
 
+        public DataTable SelectCityByStateId(int intStateId)
+        {
+            try
+            {
+                DALComponent objDalComp = new DALComponent();
+                objDalComp.SetParameters("@stateId", SqlDbType.Int, 4, intStateId);
+                objDalComp.SqlCommandText = "[SelectCityByStateId]";
+                return objDalComp.SelectRecord();
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new ApplicationException("Data error=" + sqlEx.Message.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error=" + ex.Message.ToString());
+            }
+        }
+
         #endregion
 
-        #region .. SERVICE & MEMBERSHIP ..
+        #region .. CATEGORY, SERVICE & MEMBERSHIP ..
+
+        public DataTable SelectAllCategory()
+        {
+            try
+            {
+                objDALComponent.SqlCommandText = "SelectCategory";
+                return objDALComponent.SelectRecord();
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new ApplicationException("Data error=" + sqlEx.Message.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error=" + ex.Message.ToString());
+            }
+        }
+
+        public DataTable SelectAllMembership()
+        {
+            try
+            {
+                objDALComponent.SqlCommandText = "SelectMembership";
+                return objDALComponent.SelectRecord();
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new ApplicationException("Data error=" + sqlEx.Message.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error=" + ex.Message.ToString());
+            }
+        }
+
+        public DataTable SelectAllService()
+        {
+            try
+            {
+                objDALComponent.SqlCommandText = "SelectService";
+                return objDALComponent.SelectRecord();
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new ApplicationException("Data error=" + sqlEx.Message.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error=" + ex.Message.ToString());
+            }
+        }
+
+        public DataTable AvailableCategory(string strCategoryName)
+        {
+            try
+            {
+                DALComponent objDalComp = new DALComponent();
+                objDalComp.SetParameters("@catname", SqlDbType.VarChar, 50, strCategoryName);
+                objDalComp.SqlCommandText = "[AvailableCategory]";
+                return objDalComp.SelectRecord();
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new ApplicationException("Data error=" + sqlEx.Message.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error=" + ex.Message.ToString());
+            }
+       
+        }
+
+        public int AddCategory(CategoryDetails categoryDetails)
+        {
+            try
+            {
+                DALComponent objDALCategory = new DALComponent();
+                objDALCategory.SetParameters("@categoryId", SqlDbType.Int, 4, categoryDetails.CategoryID);
+                objDALCategory.SetParameters("@categoryName", SqlDbType.VarChar, 50, categoryDetails.CategoryName);
+                objDALCategory.SetParameters("@categoryDesc", SqlDbType.VarChar, 300, categoryDetails.CategoryDescription);
+                objDALCategory.SetParameters("@idvalue", SqlDbType.Int, true);
+                objDALCategory.SqlCommandText = "[CreateCategory]";
+                int x = objDALCategory.CreateRecord();
+                object y = objDALCategory.GetParameters("@idvalue");
+                if (categoryDetails.CategoryID != 0)
+                    return categoryDetails.CategoryID;
+                else
+                    return Int32.Parse(y.ToString());
+                
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new ApplicationException("Data error=" + sqlEx.Message.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error=" + ex.Message.ToString());
+            }
+        
+        }
+
+        public void DeleteCategoryById(int intCategoryId)
+        {
+            try
+            {
+                objDALComponent.SetParameters("@categoryId", SqlDbType.Int, 4, intCategoryId);
+                objDALComponent.SqlCommandText = "[DeleteCategoryById]";
+                int x = objDALComponent.DeleteRecord();
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new ApplicationException("Data error=" + sqlEx.Message.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error=" + ex.Message.ToString());
+            }
+        }
 
         public int AddService(ServiceDetails serviceDetails)
         {
@@ -577,6 +1077,24 @@ namespace ServeAtDoorstepServiceApp
                     return serviceDetails.ServiceID;
                 else
                     return Int32.Parse(y.ToString());
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new ApplicationException("Data error=" + sqlEx.Message.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error=" + ex.Message.ToString());
+            }
+        }
+
+        public void DeleteServiceById(int intServiceId)
+        {
+            try
+            {
+                objDALComponent.SetParameters("@serviceId", SqlDbType.Int, 4, intServiceId);
+                objDALComponent.SqlCommandText = "[DelServiceById]";
+                int x = objDALComponent.DeleteRecord();
             }
             catch (SqlException sqlEx)
             {
@@ -617,25 +1135,107 @@ namespace ServeAtDoorstepServiceApp
             }
         }
 
-        public int AddQuoteDetails(QuoteDetails quoteDetails)
+        public void DelMembershipById(int intMemberId)
+        {
+            try
+            {
+                objDALComponent.SetParameters("@memberId", SqlDbType.Int, 4, intMemberId);
+                objDALComponent.SqlCommandText = "[DelMembershipById]";
+                int x = objDALComponent.DeleteRecord();
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new ApplicationException("Data error=" + sqlEx.Message.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error=" + ex.Message.ToString());
+            }
+        }
+
+        public DataTable GetMembershipById(int intMemberId)
+        {
+            try
+            {
+                DALComponent objDalComp = new DALComponent();
+                objDalComp.SetParameters("@memberid", SqlDbType.Int, 4, intMemberId);
+                objDalComp.SqlCommandText = "[GetMembershipById]";
+                return objDalComp.SelectRecord();
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new ApplicationException("Data error=" + sqlEx.Message.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error=" + ex.Message.ToString());
+            }
+        }
+
+
+        public DataTable SelectServiceByCatID(int intCategoryId)
+        {
+            try
+            {
+                DALComponent objDalComp = new DALComponent();
+                objDalComp.SetParameters("@CategoryId", SqlDbType.Int, 4, intCategoryId);
+                objDalComp.SqlCommandText = "[SelectServiceByCatId]";
+                return objDalComp.SelectRecord();
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new ApplicationException("Data error=" + sqlEx.Message.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error=" + ex.Message.ToString());
+            }
+        }
+
+        public DataTable GetServiceById(int intServiceId)
+        {
+            try
+            {
+                DALComponent objDalComp = new DALComponent();
+                objDalComp.SetParameters("@serviceid", SqlDbType.Int, 4, intServiceId);
+                objDalComp.SqlCommandText = "[GetServiceById]";
+                return objDalComp.SelectRecord();
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new ApplicationException("Data error=" + sqlEx.Message.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error=" + ex.Message.ToString());
+            }
+        }
+
+        #endregion
+
+        #region .. INQUIRY DETAILS ..
+
+        public int AddInquiryDetails(InquiryDetails quiryDetails)
         {
             try
             {
                 DALComponent objDALRegister = new DALComponent();
-                objDALRegister.SetParameters("@QuoteID", SqlDbType.Int, 4, quoteDetails.QuoteID);
-                objDALRegister.SetParameters("@QuoteTitle", SqlDbType.VarChar, 100, quoteDetails.QuoteTitle);
-                objDALRegister.SetParameters("@Description", SqlDbType.VarChar, 300, quoteDetails.Description);
-                objDALRegister.SetParameters("@Keywords", SqlDbType.VarChar, 300, quoteDetails.Keywords);
-                objDALRegister.SetParameters("@CategoryId", SqlDbType.Int, 4, quoteDetails.CategoryId);
-                objDALRegister.SetParameters("@ServiceId", SqlDbType.Int, 4, quoteDetails.ServiceId);
-                objDALRegister.SetParameters("@CustomerId", SqlDbType.Int, 4, quoteDetails.CustomerId);
-                objDALRegister.SetParameters("@CityId", SqlDbType.Int, 4, quoteDetails.CityId);
+                objDALRegister.SetParameters("@InquiryID", SqlDbType.Int, 4, quiryDetails.InquiryID);
+                objDALRegister.SetParameters("@InquiryTitle", SqlDbType.VarChar, 100, quiryDetails.InquiryTitle);
+                objDALRegister.SetParameters("@Description", SqlDbType.VarChar, 300, quiryDetails.Description);
+                objDALRegister.SetParameters("@Keywords", SqlDbType.VarChar, 300, quiryDetails.Keywords);
+                objDALRegister.SetParameters("@CategoryId", SqlDbType.Int, 4, quiryDetails.CategoryId);
+                objDALRegister.SetParameters("@ServiceId", SqlDbType.Int, 4, quiryDetails.ServiceId);
+                objDALRegister.SetParameters("@CustomerId", SqlDbType.Int, 4, quiryDetails.CustomerId);
+                objDALRegister.SetParameters("@CityId", SqlDbType.Int, 4, quiryDetails.CityId);
+                objDALRegister.SetParameters("@ImagePath", SqlDbType.VarChar, 500, quiryDetails.ImagePath);
+                objDALRegister.SetParameters("@VideoPath", SqlDbType.VarChar, 200, quiryDetails.VideoPath);
                 objDALRegister.SetParameters("@idvalue", SqlDbType.Int, true);
-                objDALRegister.SqlCommandText = "[CreateQuoteDetails]";
+                objDALRegister.SqlCommandText = "[CreateInquiryDetails]";
                 int x = objDALRegister.CreateRecord();
                 object y = objDALRegister.GetParameters("@idvalue");
-                if (quoteDetails.QuoteID != 0)
-                    return quoteDetails.QuoteID;
+                if (quiryDetails.InquiryID != 0)
+                    return quiryDetails.InquiryID;
                 else
                     return Int32.Parse(y.ToString());
             }
@@ -649,7 +1249,112 @@ namespace ServeAtDoorstepServiceApp
             }
         }
 
+        public DataTable SelectInquiryByCustomerId(int customerId)
+        {
+            try
+            {
+                DALComponent objDalComp = new DALComponent();
+                objDalComp.SetParameters("@customerid", SqlDbType.Int, 4, customerId);
+                objDalComp.SqlCommandText = "[SelectInquiryByCusId]";
+                return objDalComp.SelectRecord();
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new ApplicationException("Data error=" + sqlEx.Message.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error=" + ex.Message.ToString());
+            }
+        }
+
+        public DataTable SelectInquiryByVendorId(int vendorId)
+        {
+            try
+            {
+                DALComponent objDalComp = new DALComponent();
+                objDalComp.SetParameters("@vendorid", SqlDbType.Int, 4, vendorId);
+                objDalComp.SqlCommandText = "[SelectInquiryByVendorId]";
+                return objDalComp.SelectRecord();
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new ApplicationException("Data error=" + sqlEx.Message.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error=" + ex.Message.ToString());
+            }
+        }
+
+        public DataTable GetInquiryById(int quiryId)
+        {
+            try
+            {
+                DALComponent objDalComp = new DALComponent();
+                objDalComp.SetParameters("@quiryid", SqlDbType.Int, 4, quiryId);
+                objDalComp.SqlCommandText = "[GetInquiryById]";
+                return objDalComp.SelectRecord();
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new ApplicationException("Data error=" + sqlEx.Message.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error=" + ex.Message.ToString());
+            }
+        }
+
+        public void UpdateInquiryImages(InquiryDetails quiryDetails)
+        {
+            try
+            {
+                DALComponent objDAL = new DALComponent();
+                objDAL.SetParameters("@inquiryId", SqlDbType.Int, 4, quiryDetails.InquiryID);
+                objDAL.SetParameters("@imagepath", SqlDbType.VarChar, 500, quiryDetails.ImagePath);
+                objDAL.SetParameters("@videopath", SqlDbType.VarChar, 200, quiryDetails.VideoPath);
+                objDAL.SqlCommandText = "[UpdateInquiryImages]";
+                int x = objDAL.UpdateRecord();
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new ApplicationException("Data error=" + sqlEx.Message.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error=" + ex.Message.ToString());
+            }
+        }
+
+
         #endregion
+
+        public void DoSendMail(SendMailDetails sendmailDetails)
+        {
+            try
+            {
+                string mUname = ConfigurationManager.AppSettings["mailUsername"].ToString();
+                string mPwd = ConfigurationManager.AppSettings["mailPassword"].ToString();
+                string mFrom = "";
+                string mTo = sendmailDetails.MailID.Trim();
+                string mCC = "";
+
+                string mSubject = sendmailDetails.MailSubject.Trim();
+                string mMsg = sendmailDetails.MailContent.Trim();
+
+                UtilityClass.SendMail(mUname, mPwd, mFrom, mTo, mCC, mSubject, mMsg, true);
+            }
+            catch (SystemException sex)
+            {
+                throw new ApplicationException("Error=" + sex.Message.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error=" + ex.Message.ToString());
+            }
+        }
+
 
     }
 }

@@ -1,110 +1,182 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="index.aspx.cs" MasterPageFile="~/Serve.Master" Inherits="ServeAtDoorstepWeb.index" %>
 
-<asp:Content ID="co1" ContentPlaceHolderID="MainContent" runat="server">
-    
-    <table>
-        <tr>
-            <td>
-                <div style="width:500px;padding-left:100px;">
-                    <table>
-                        <tr>
-                            <td style="font-family:Verdana;font-size:medium;
-                                        font-weight:800;height:35px;">Account Information</td>
-                        </tr>
-                        <tr><td>&nbsp;</td></tr>
-                        <tr><td>&nbsp;</td></tr>
-                        <tr>
-                            <td>Already member? Login with your Username and Password On The Right!</td>
-                        </tr>
-                        <tr><td>&nbsp;</td></tr>
-                        <tr>
-                            <td>New member? Click below as a</td>
-                        </tr>
-                        <tr><td>&nbsp;</td></tr>
-                        <tr>
-                            <td>
-                                <asp:Button ID="btnCustomer" runat="server" Text="Customer" OnClick="btnCustomer_Click"
-                                style="width:200px;height:50px;background-color:#e8ea15;
-                                                        font-family:Verdana;font-size:20px;font-weight:600;
-                                                        border-radius:12px 12px 12px 12px;" />
+<asp:Content ID="C1" ContentPlaceHolderID="MainContent" runat="server">
+        <div id="MainSection">
+            <div id="divCategory" class="MainCategory" runat="server">
+                    <br/>
+                    <strong>
+                        <label id="currentLocation" runat="server">/ Current Location:</label></strong>
+                    <small style="color: #C03;">&nbsp;&nbsp;&nbsp;[Change]</small>
+                    <br/>
+                    <hr/>
+            </div>
+            <div id="divMainItem" runat="server" class="ServItem">
+            </div>
+        </div>
 
-                                <asp:Button ID="btnVendor" runat="server" Text="Vendor" OnClick="btnVendor_Click"
-                                 style="width:200px;height:50px;background-color:#f00;
-                                                        font-family:Verdana;font-size:20px;font-weight:600;
-                                                        border-radius:12px 12px 12px 12px;" />
 
-                            </td>
-                        </tr>
-                    </table>
-                </div>
+    <style type="text/css" media="screen">
+    <!--
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            padding: 10px;
+        }
+        
+        h1 {
+            margin: 10px 0;
+            font-family: 'Trebuchet MS', Helvetica;
+        }
+        
+        p {
+            margin: 10px 0;
+            font-family: 'Trebuchet MS', Helvetica;
+        }
+        
+        .bubbleInfo {
+            position: relative;
+            top: 0px;
+            left: 0px;
+            width: 900px;
+        }
+        .trigger {
+        }
+     
+        /* Bubble pop-up */
+        .priceFrom {
+        padding-top:6px;width:50%;height:25px;background-color:#790d0d;
+        color:white;
+        background-image: linear-gradient(to bottom, #f327dd, #790d0d);
+        }
+        .priceTo {
+        padding-top:6px;width:50%;height:25px;background-color:#7285e1;
+        color:white;
 
-            </td>
-            <td>
-                <div style="width:50px;">&nbsp;</div>
-            </td>
-            <td> 
-               <div style="border: thin solid #800080;width: 400px; height: 325px; ">
-                                <table style="width: 400px; height: 287px;">
-                                    <tr>
-                                        <td colspan="2" class="auto-style1" style="background-color: #aed586;
-             font-family: Verdana; font-weight: 500; font-size: large; color: #FFFFCC;vertical-align:middle;">
-                                            &nbsp;&nbsp;
-                                            <asp:Label ID="lblCaptionText" runat="server" Text="Login" Font-Names="Verdana"></asp:Label>
+       background-image: linear-gradient(to bottom, #000067, #7285e1);   }
+        .popup {
+        	position: absolute;
+        	display: none;
+        	z-index: 50;
+            width:700px;
+        	border-collapse: collapse;
+        }
 
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">
-                                            <div id="divErrMsg" runat="server" style="color:red;font-weight:700;"></div>&nbsp;
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2" style="text-align:center;padding-right:10px;" class="auto-style3">
-                                            <input name="rdoLogType" value="1" type="radio" />Customer
-                                            <input name="rdoLogType" value="2" type="radio" />Vendor
-                                        </td>
-                                    </tr>
-                                    <tr><td colspan="2">&nbsp;</td></tr>
-                                    <tr>
-                                        <td style="text-align:right;padding-right:10px;" class="auto-style3">
-                                            <strong><span class="auto-style2">User Name</span></strong>
-                                        </td>
-                                        <td class="auto-style2">
-                                            <input id="txtUsername" name="txtUsername" runat="server" type="text" style="width:180px;height:25px;font-size:18px;"
-                                                class="easyui-validatebox" data-options="required:true" />
-                                        </td>
-                                    </tr>
-                                    <tr><td colspan="2">&nbsp;</td></tr>
-                                    <tr>
-                                        <td style="text-align:right;padding-right:10px;" class="auto-style3">                    
-                                            <strong><span class="auto-style2">Password</span></strong>
-                                        </td>
-                                        <td class="auto-style2">
-                                            <input id="txtUserpassword" name="txtUserpassword" runat="server" type="password"  style="width:180px;height:25px;font-size:15px;"
-                                                class="easyui-validatebox" data-options="required:true" />
-                                        </td>
-                                    </tr>
-                                    <tr><td colspan="2">&nbsp;</td></tr>
-                                    <tr>
-                                        <td class="auto-style3" style="height: 44px"></td>
-                                        <td class="auto-style2" style="height: 44px">
-                                            <input id="chkAgree" runat="server" type="checkbox" name="chkAgree" />Remember me next time
-                                            <br />
-                                            <br />
-                                            <asp:Button ID="btnLogin" runat="server" Text="Login" OnClick="btnLogin_Click" 
-                                                style="width:120px;height:35px;background-color:#b93511;color:white;font-weight:800;" /><br />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="auto-style3">&nbsp;</td>
-                                        <td class="auto-style2">
-                                            <asp:HyperLink ID="hlForgotPwd" runat="server" style="font-size: 18px; margin:0px 0px 0px 0px;" NavigateUrl="~/ForgotPassword.aspx?type=cus">Forgot password</asp:HyperLink>
-                                        </td>
-                                    </tr>
-                                </table>
-                                </div>
+        .popup td.corner {
+        	height: 15px;
+        	width: 19px;
+        }
 
-            </td>
-            </tr>
-        </table>
+        .popup td#topleft { background-image: url(image/bubble/bubble-1.png); }
+        .popup td.top { background-image: url(image/bubble/bubble-2.png); }
+        .popup td#topright { background-image: url(image/bubble/bubble-3.png); }
+        .popup td.left { background-image: url(image/bubble/bubble-4.png); }
+        .popup td.right { background-image: url(image/bubble/bubble-5.png); }
+        .popup td#bottomleft { background-image: url(image/bubble/bubble-6.png); }
+        .popup td.bottom { background-image: url(image/bubble/bubble-7.png); text-align: center;}
+        .popup td.bottom img { display: block; margin: 0 auto; }
+        .popup td#bottomright { background-image: url(image/bubble/bubble-8.png); }
+
+        .popup table.popup-contents {
+        	font-size: 12px;
+        	background-color: #b6ff00;
+            background-image: linear-gradient(to bottom, #b6ee89, #b6ff00);
+
+        	color: #161442;
+            width:225px;
+            height:90px;
+            border-radius:9px;
+            border-color:indianred;
+        	font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", sans-serif;
+        	}
+
+        table.popup-contents th {
+        	text-align: right;
+            width:40%;
+        	text-transform: lowercase;
+        	}
+
+        table.popup-contents td {
+        	text-align: left;
+        	text-transform: uppercase;
+            width:60%;
+
+        	}
+
+        tr#release-notes th {
+        	text-align: left;
+        	text-indent: -9999px;
+        	background: url(http://jqueryfordesigners.com/demo/images/coda/starburst.gif) no-repeat top right;
+        	height: 17px;
+        	}
+
+        tr#release-notes td a {
+        	color: #333;
+        }
+        
+    -->
+    </style>
+    <script type="text/javascript">
+    <!--
+
+    $(function () {
+        $('.bubbleInfo').each(function () {
+            var distance = 10;
+            var time = 250;
+            var hideDelay = 500;
+
+            var hideDelayTimer = null;
+
+            var beingShown = false;
+            var shown = false;
+            var trigger = $('.trigger', this);
+            var info = $('.popup', this).css('opacity', 0);
+
+
+            $([trigger.get(0), info.get(0)]).mouseover(function () {
+                if (hideDelayTimer) clearTimeout(hideDelayTimer);
+                if (beingShown || shown) {
+                    // don't trigger the animation again
+                    return;
+                } else {
+                    // reset position of info box
+                    beingShown = true;
+
+                    info.css({
+                        top: -90,
+                        left: -33,
+                        display: 'block'
+                    }).animate({
+                        top: '-=' + distance + 'px',
+                        opacity: 1
+                    }, time, 'swing', function () {
+                        beingShown = false;
+                        shown = true;
+                    });
+                }
+
+                return false;
+            }).mouseout(function () {
+                if (hideDelayTimer) clearTimeout(hideDelayTimer);
+                hideDelayTimer = setTimeout(function () {
+                    hideDelayTimer = null;
+                    info.animate({
+                        top: '-=' + distance + 'px',
+                        opacity: 0
+                    }, time, 'swing', function () {
+                        shown = false;
+                        info.css('display', 'none');
+                    });
+
+                }, hideDelay);
+
+                return false;
+            });
+        });
+    });
+
+    //-->
+    </script>
 </asp:Content>

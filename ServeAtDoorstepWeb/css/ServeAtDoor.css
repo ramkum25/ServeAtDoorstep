@@ -36,6 +36,18 @@ a:visited { color: #551a8b; }
 a:hover { color: #06e; }
 a:focus { outline: thin dotted; }
 
+.CatLink
+{
+    font-family:Arial,Verdana;
+    font-size:10pt;
+    font-weight:bold;
+    color:#a84a4a;
+    text-decoration:none;
+}
+.CatLink:visited { color: #551a8b; }
+.CatLink:hover { color: #06e; }
+.CatLink:focus { outline: thin dotted; }
+
 .borders 
 {
     border:1px solid black;   
@@ -72,3 +84,87 @@ a:focus { outline: thin dotted; }
   color:black;   
   font-weight:bold;
 }
+
+.btnYellow {
+    border: 1px solid #ffc826;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	font-size: 16px;
+	font-family: 'Ubuntu', sans-serif;
+	padding: 12px 12px 12px 12px;
+	text-decoration: none;
+	display: inline-block;
+	text-shadow: 0px 0px 0 rgba(0,0,0,0.3);
+	font-weight: bold;
+	color: #000000;
+	background-color: #ffd65e;
+	margin-top: 10px;
+    background-image: linear-gradient(to bottom, #ffd65e, #febf04);
+}
+    .btnYellow:hover {
+        border: 1px solid #f7b800;
+        background-color: #ffc92b;
+        background-image: linear-gradient(to bottom, #ffc92b, #ce9a01);
+    }
+    
+.btnRed {
+    border:1px solid #72021c; -webkit-border-radius: 3px; -moz-border-radius: 3px;border-radius: 3px;font-size:16px;font-family:'Ubuntu', sans-serif; padding: 12px 12px 12px 12px; text-decoration:none; display:inline-block;font-weight:normal; color: #FFFFFF;
+ background-color: #a90329; margin-top: 10px;
+    width: 20%;
+    background-image: linear-gradient(to bottom, #a90329, #6d0019);
+
+}
+    .btnRed:hover {
+       border:1px solid #450111;
+ background-color: #77021d; background-image: linear-gradient(to bottom, #77021d, #3a000d);
+ }
+
+    
+.DashLink {
+    border:1px solid #aad4a7; -webkit-border-radius: 3px; -moz-border-radius: 3px;border-radius: 25px;font-size:16px;font-family:Calibri;
+     padding: 4px 4px 4px 4px; text-decoration:none; display:inline-block;font-weight:normal; font-weight:bold;color:black;
+    background-color: #aad4a7;
+    width: 20%;
+    text-align:center;
+    background-image: linear-gradient(to bottom, #aad4a7, #aad4a7);
+
+}
+    .DashLink:hover {
+       border:1px solid #f7b800;
+ background-color: #ffc92b; background-image: linear-gradient(to bottom, #aad4a7, #aad4a7);
+ }
+
+    
+.InputTextbox {
+border:1px solid #1c1c1c; 
+-webkit-border-radius: 3px; 
+-moz-border-radius: 3px;
+border-radius: 3px;
+font-size:14px;
+font-family:sans-serif; 
+text-decoration:none; display:inline-block; color: #000000;
+ background-color:#f2f2f2; margin-top: 0px;
+    background-image: linear-gradient(to bottom, #f2f2f2, #ffffff);
+}
+ 
+
+    
+.CssTextbox {
+    border:1px double #aad4a7; 
+    -webkit-border-radius: 5px; 
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding:5px;
+    font-size:14px;
+    font-family:Verdana; 
+    text-decoration:double; 
+    display:inline-block; 
+    color: #000000;
+    background-color:white; 
+    /*background-image: linear-gradient(to bottom, #000000, #ffffff);*/
+}
+ .CssTextbox:focus {
+       border:1px solid #aad4a7;
+    background-color: #f6f782; 
+ }

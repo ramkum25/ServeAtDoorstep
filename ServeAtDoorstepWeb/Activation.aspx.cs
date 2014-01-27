@@ -41,9 +41,9 @@ namespace ServeAtDoorstepWeb
         protected void lnkLogin_Click(object sender, EventArgs e)
         {
             if (strType == "cus")
-                Response.Redirect("LoginCustomer.aspx");
+                Response.Redirect("Login.aspx");
             else if (strType == "ven")
-                Response.Redirect("LoginVendor.aspx");
+                Response.Redirect("Login.aspx");
 
         }
     }

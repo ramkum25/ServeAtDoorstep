@@ -5,6 +5,15 @@ using System.Text;
 
 namespace ServeAtDoorstepData
 {
+    public class CategoryDetails
+    {
+        public int CategoryID { get; set; }
+        public string CategoryName { get; set; }
+        public string CategoryDescription { get; set; }
+        public string CreatedOn { get; set; }
+        public int CreatedBy { get; set; }
+    }
+
     public class ServiceDetails
     {
         public int ServiceID { get; set; }

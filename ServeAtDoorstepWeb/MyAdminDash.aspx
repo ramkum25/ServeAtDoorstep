@@ -3,19 +3,16 @@
 <asp:Content runat="server" ID="Content1" ContentPlaceHolderID="MainContent">
 
     <div style="height: 500px" >
-        
+        <div style="background-color: gray; height: 35px; font-family: Arial; font-size: 18px; color: white;text-align:left;vertical-align:central;
+                    padding-left:25px;padding-top:10px; font-style:normal;font-weight:bold;">
+            My Dashboard
+        </div>
         <table style="width:100%;">
             <tr>
                 <td style="height: 25px; width: 209px"></td>
                 <td style="height: 25px"></td>
                 <td style="height: 25px"></td>
                 <td style="height: 25px"></td>
-            </tr>
-            <tr>
-                <td style="width: 200px; height: 50px"></td>
-                <td style="height: 50px"></td>
-                <td style="height: 50px"></td>
-                <td style="height: 50px"></td>
             </tr>
             <tr>
                 <td colspan="4">

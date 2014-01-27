@@ -109,7 +109,7 @@ hr {
 	width: 100%;
 	display: block;
 }
-#MainCategory {
+.MainCategory {
 	clear: both;
 	float: left;
 	margin-left: 0;
@@ -117,6 +117,13 @@ hr {
 	display: block;
 }
 #MainItem {
+	clear: none;
+	float: left;
+	margin-left: 4.1666%;
+	width: 100%;
+	display: block;
+}
+.ServItem {
 	clear: none;
 	float: left;
 	margin-left: 4.1666%;
@@ -223,7 +230,7 @@ hr {
 	width: 100%;
 	display: block;
 }
-#MainCategory {
+.MainCategory {
 	clear: both;
 	float: left;
 	margin-left: 0;
@@ -231,6 +238,13 @@ hr {
 	display: block;
 }
 #MainItem {
+	clear: none;
+	float: left;
+	margin-left: 2.5641%;
+	width: 100%;
+	display: block;
+}
+.ServItem {
 	clear: none;
 	float: left;
 	margin-left: 2.5641%;
@@ -362,7 +376,7 @@ hr {
 	width: 18.3673%;
 	display: block;
 }
-#PostButton{
+.PostButton{
 	border: 1px solid #ffc826;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
@@ -381,7 +395,7 @@ hr {
     background-image: linear-gradient(to bottom, #ffd65e, #febf04);
 }
 
-#PostButton:hover{
+.PostButton:hover{
  border:1px solid #f7b800;
  background-color: #ffc92b; background-image: linear-gradient(to bottom, #ffc92b, #ce9a01);
  }
@@ -397,7 +411,8 @@ border:1px solid #72021c; -webkit-border-radius: 3px; -moz-border-radius: 3px;bo
  background-color: #77021d; background-image: linear-gradient(to bottom, #77021d, #3a000d);
  }
 #SearchBox{
-border:1px solid #1c1c1c; -webkit-border-radius: 3px; -moz-border-radius: 3px;border-radius: 3px;font-size:16px;font-family:'Ubuntu', sans-serif; padding: 12px 12px 12px 12px; text-decoration:none; display:inline-block; color: #000000;
+border:1px solid #1c1c1c; -webkit-border-radius: 3px; -moz-border-radius: 3px;border-radius: 3px;font-size:16px;font-family:'Ubuntu', sans-serif; 
+padding: 12px 12px 12px 12px; text-decoration:none; display:inline-block; color: #000000;
  background-color:#f2f2f2; margin-top: 10px;
     background-image: linear-gradient(to bottom, #f2f2f2, #ffffff);
 }
@@ -406,7 +421,7 @@ border:1px solid #1c1c1c; -webkit-border-radius: 3px; -moz-border-radius: 3px;bo
  background-color:#f2f2f2; margin-top: 10px;
     background-image: linear-gradient(to bottom, #f2f2f2, #ffffff);
 }
-#MainCategory{
+.MainCategory{
 	clear: both;
 	float: left;
 	padding-left: 1%;
@@ -419,6 +434,18 @@ border:1px solid #1c1c1c; -webkit-border-radius: 3px; -moz-border-radius: 3px;bo
 	background-color:#aed586; background-image: linear-gradient(to bottom, #aed586, #d0e394);
  }
 #MainItem{
+	clear: none;
+	float: left;
+	margin-left: 2.0408%;
+	margin-right: 1%;
+	width: 78.5918%;
+	display: block;
+	font-family: 'Ubuntu', sans-serif;
+	font-size:14px;
+	/*background: orange;*/
+	line-height: 20px;
+}
+.ServItem{
 	clear: none;
 	float: left;
 	margin-left: 2.0408%;
@@ -497,7 +524,7 @@ border:1px solid #72021c; -webkit-border-radius: 3px; -moz-border-radius: 3px;bo
 }
 
 /* button style */
-.YardButton {
+.btnGreen {
 background-color: #008040;
 color:#FFF;
 box-decoration-break:clone;
@@ -513,22 +540,77 @@ width: 20%;
 padding: 10px 10px 10px 10px;
  border:1px solid #450111;
 }
-.YardButton:hover{
+.btnGreen:hover{
  border:1px solid #450111;
  background-color: #008040; background-image: linear-gradient(to bottom, #008040, #006600);
  }
-.YardTextbox {
+.btnBlue {
+background-color: #487ce6;
+color:#FFF;
+box-decoration-break:clone;
+border-radius: 3px;
+-webkit-border-radius: 3px; 
+-moz-border-radius: 3px;
+font-size:16px; 
+font-weight:bold;
+display:inline-block;
+font-family:Arial;
+font-weight:normal;
+margin-top: 10px;
+width: 20%;
+padding: 5px 5px 5px 5px;
+ border:1px solid #450111;
+}
+.btnBlue:hover{
+ border:1px solid #450111;
+ background-color: #143d5b; background-image: linear-gradient(to bottom, #0e2960, #0e2960);
+ }
+.SubmitButton {
+background-color: #90db44;
+color:#FFF;
+box-decoration-break:clone;
+border-radius: 4px;
+-webkit-border-radius: 3px; 
+-moz-border-radius: 3px;
+font-family:Calibri;
+font-size:14px; 
+font-weight:bold;
+display:inline-block;
+margin-top: 5px;
+width: 20%;
+padding: 5px 5px 5px 5px;
+ border:1px solid #90db44;
+}
+.SubmitButton:hover{
+ border:1px solid #008040;
+ background-color: #90db44; background-image: linear-gradient(to bottom, #71b130, #71b130);
+ }
+
+
+.ServeTextbox {
 border:1px solid #1c1c1c; 
 -webkit-border-radius: 3px; 
 -moz-border-radius: 3px;
 border-radius: 3px;
-font-size:16px;
-font-family:'Ubuntu', sans-serif; 
+font-size:14px;
+font-family:Verdana, sans-serif; 
 padding: 5px 5px 5px 5px;
 text-decoration:none; display:inline-block; color: #000000;
  background-color:#f2f2f2; margin-top: 10px;
     background-image: linear-gradient(to bottom, #f2f2f2, #ffffff);
 }
+.ServeDropdownlist {
+border:1px solid #1c1c1c; 
+-webkit-border-radius: 3px; 
+-moz-border-radius: 3px;
+border-radius: 3px;
+font-size:14px;
+font-family: sans-serif; 
+text-decoration:none; display:inline-block; color: #000000;
+ background-color:#f2f2f2; margin-top: 2px;
+    background-image: linear-gradient(to bottom, #f2f2f2, #ffffff);
+}
+
 /* horizontal menu css */
 
 .horizontalcssmenu ul

@@ -1,16 +1,20 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Help.aspx.cs" Inherits="ServeAtDoorstepWeb.Help" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Help.aspx.cs" MasterPageFile="~/Serve.Master" Inherits="ServeAtDoorstepWeb.Help" %>
 
-<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
-    <div>
-    
-    </div>
-    </form>
-</body>
-</html>
+<asp:content ID="c1" runat="server" ContentPlaceHolderID="MainContent">
+
+    <div id="MainSection">
+            <div id="divCategory" class="MainCategory" runat="server">
+                    <br/>
+                    <strong>
+                        <label id="currentLocation" runat="server">/ Current Location:</label></strong>
+                    <small style="color: #C03;">&nbsp;&nbsp;&nbsp;[Change]</small>
+                    <br/>
+                    <hr/>
+            </div>
+            <div id="MainItem">
+
+            </div>
+        </div>
+
+</asp:content>

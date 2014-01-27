@@ -20,9 +20,13 @@ namespace ServeAtDoorstepWeb
 
         public int intCustomerAvail = 0, intMailAvail = 0, intVaidError = 0;
         public string strErrorMessage = "";
+        public string _usZipRegEx = @"^\d{5}(?:[-\s]\d{4})?$";
+        public string _caZipRegEx = @"^([ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ])\ {0,1}(\d[ABCEGHJKLMNPRSTVWXYZ]\d)$";
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            ddlState.SelectedIndexChanged += new EventHandler(ddlState_SelectedIndexChanged);
+            ddlCity.Attributes.Add("onChange", "return codeAddress();");
 
             if (!IsPostBack)
             {
@@ -50,6 +54,9 @@ namespace ServeAtDoorstepWeb
                 listItem.Value = dt1.Rows[i]["CountryId"].ToString();
                 ddlCountry.Items.Add(listItem);
             }
+
+            ddlCountry.SelectedIndex = 244;
+            ddlCountry.Disabled = true;
         }
 
         void LoadCity()
@@ -96,14 +103,7 @@ namespace ServeAtDoorstepWeb
             intVaidError = 0;
             CheckValidation();
 
-            if (fileProfile.HasFile)
-            {
-                if (fileProfile.PostedFile.ContentLength > 1048576)
-                {
-                    strErrorMessage += "Image size exceeds maximum limit 1 MB.<br />";
-                    intVaidError++;
-                }
-            }
+            
             if (intVaidError == 0)
             {
                 string path = string.Empty;
@@ -111,6 +111,27 @@ namespace ServeAtDoorstepWeb
                 string finalPath = string.Empty;
                 string filePath = string.Empty;
                 string sFilename = "";
+                        
+                ServeAtDoorstepData.CustomerDetails objCusDetails = new ServeAtDoorstepData.CustomerDetails();
+                objCusDetails.Address = txtAddress.Value.ToString();
+                objCusDetails.CityId = Convert.ToInt32(ddlCity.SelectedItem.Value.ToString());
+                objCusDetails.CountryId = Convert.ToInt32(ddlCountry.Value.ToString());
+                objCusDetails.CustomerID = 0;
+                objCusDetails.Email = txtEmail.Value.ToString();
+                objCusDetails.FirstName = txtFirstname.Value.ToString();
+                objCusDetails.LastName = txtLastname.Value.ToString();
+                objCusDetails.Gender = Request.Form["rdoGender"].ToString();// rdoGender.Value.ToString();
+                objCusDetails.LoginName = txtUsername.Value.ToString();
+                objCusDetails.LoginPassword = txtPassword.Value.ToString();
+                objCusDetails.Mobile = txtMobile.Value.ToString();
+                objCusDetails.StateId = Convert.ToInt32(ddlState.SelectedItem.Value.ToString());
+                objCusDetails.StreetName = txtStreet.Value.ToString();
+                objCusDetails.ZipCode = txtZipcode.Value.ToString();
+                objCusDetails.ImagePath = "";
+
+                objService = new ServeAtDoorstepService();
+                int intCusId = objService.AddCustomerRegister(objCusDetails);
+
                 if (fileProfile.PostedFile != null)
                 {
                     HttpPostedFile myFile = fileProfile.PostedFile;
@@ -118,7 +139,7 @@ namespace ServeAtDoorstepWeb
                     if (nFileLen != 0)
                     {
                         DirectoryInfo dirInfo = null;
-                        string fileSavePath = "/Data/SDCUS/Images/";
+                        string fileSavePath = "/Data/SDCUS_"+intCusId.ToString()+"/Images/";
                         path = Server.MapPath("~" + fileSavePath);
                         if (!Directory.Exists(path))
                         {
@@ -131,26 +152,12 @@ namespace ServeAtDoorstepWeb
                         finalPath = Path.Combine(fileSavePath, sFilename);
                     }
                 }
-                strImgFinalPath = finalPath;        
-                ServeAtDoorstepData.CustomerDetails objCusDetails = new ServeAtDoorstepData.CustomerDetails();
-                objCusDetails.Address = txtAddress.Value.ToString();
-                objCusDetails.CityId = Convert.ToInt32(ddlCity.Value.ToString());
-                objCusDetails.CountryId = Convert.ToInt32(ddlCountry.Value.ToString());
-                objCusDetails.CustomerID = 0;
-                objCusDetails.Email = txtEmail.Value.ToString();
-                objCusDetails.FirstName = txtFirstname.Value.ToString();
-                objCusDetails.LastName = txtLastname.Value.ToString();
-                objCusDetails.Gender = Request.Form["rdoGender"].ToString();// rdoGender.Value.ToString();
-                objCusDetails.LoginName = txtUsername.Value.ToString();
-                objCusDetails.LoginPassword = txtPassword.Value.ToString();
-                objCusDetails.Mobile = txtMobile.Value.ToString();
-                objCusDetails.StateId = Convert.ToInt32(ddlState.Value.ToString());
-                objCusDetails.StreetName = txtStreet.Value.ToString();
-                objCusDetails.ZipCode = txtZipcode.Value.ToString();
-                objCusDetails.ImagePath = strImgFinalPath;
+                strImgFinalPath = finalPath;
 
-                objService = new ServeAtDoorstepService();
-                int intCusId = objService.AddCustomerRegister(objCusDetails);
+                ServeAtDoorstepData.CustomerDetails cusDet = new ServeAtDoorstepData.CustomerDetails();
+                cusDet.CustomerID = intCusId;
+                cusDet.ImagePath = strImgFinalPath;
+                objService.UpdateCustomerImage(cusDet);
 
                 ServeAtDoorstepData.CusBankDetails objBankdet = new ServeAtDoorstepData.CusBankDetails();
                 objBankdet.BankId = 0;
@@ -164,7 +171,9 @@ namespace ServeAtDoorstepWeb
 
                 SendMailtoUser(intCusId);
 
-                Response.Redirect("Success.aspx?type=cus");
+                lblEmailId.Text = txtEmail.Value.ToString();
+                this.ModalPopupSuccess.Show();
+                //Response.Redirect("Success.aspx?type=cus");
             }
             else
             {
@@ -173,9 +182,15 @@ namespace ServeAtDoorstepWeb
             }
         }
 
+        protected void btnOK_Click(object sender, EventArgs e)
+        {
+            this.ModalPopupSuccess.Hide();
+            Response.Redirect("index.aspx");
+        }
+
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            Response.Redirect("LoginCustomer.aspx");
+            Response.Redirect("Login.aspx");
         }
 
         void CheckValidation()
@@ -183,40 +198,77 @@ namespace ServeAtDoorstepWeb
             if (txtUsername.Value.ToString() == "")
             {
                 intVaidError++;
-                strErrorMessage = "Login Name should not be empty.<br />";
+                strErrorMessage += "<img src='image/warning.png' height='25px' width='25px' />&nbsp;&nbsp;Login Name should not be empty.<br />";
             }
             CustomerCheck();
             if (intCustomerAvail==1)
             {
                 intVaidError++;
-                strErrorMessage += "Login Name already exists.<br />";
+                strErrorMessage += "<img src='image/warning.png' height='25px' width='25px' />&nbsp;&nbsp;Login Name already exists.<br />";
             } 
             if (txtPassword.Value.ToString() == "")
             {
                 intVaidError++;
-                strErrorMessage = "Login Password should not be empty.<br />";
+                strErrorMessage = "<img src='image/warning.png' height='25px' width='25px' />&nbsp;&nbsp;Login Password should not be empty.<br />";
             }
             if (txtPassword.Value.ToString() != txtConPassword.Value.ToString())
             {
                 intVaidError++;
-                strErrorMessage = "Confirm password should be match with password.<br />";
+                strErrorMessage = "<img src='image/warning.png' height='25px' width='25px' />&nbsp;&nbsp;Confirm password should be match with password.<br />";
             }
-            
+            if (Request.Form["rdoGender"] == null)
+            {
+                intVaidError++;
+                strErrorMessage = "<img src='image/warning.png' height='25px' width='25px' />&nbsp;&nbsp;Please select gender.<br />";
+            }
+            if (ddlState.SelectedIndex == 0)
+            {
+                intVaidError++;
+                strErrorMessage = "<img src='image/warning.png' height='25px' width='25px' />&nbsp;&nbsp;Please select state.<br />";
+            }
+            if (ddlCity.SelectedIndex == 0)
+            {
+                intVaidError++;
+                strErrorMessage = "<img src='image/warning.png' height='25px' width='25px' />&nbsp;&nbsp;Please select city.<br />";
+            }
+            if (txtZipcode.Value.ToString() == "")
+            {
+                intVaidError++;
+                strErrorMessage = "<img src='image/warning.png' height='25px' width='25px' />&nbsp;&nbsp;Zip code should not be empty.<br />";
+            }
+            if (txtZipcode.Value.ToString() != "" && !IsUsorCanadianZipCode(txtZipcode.Value.ToString()))
+            {
+                intVaidError++;
+                strErrorMessage += "<img src='image/warning.png' height='25px' width='25px' />&nbsp;&nbsp;Zip code is not valid.<br />";
+            }
             if (!IsEmailValid(txtEmail.Value.ToString()))
             {
                 intVaidError++;
-                strErrorMessage += "E mail address is not valid.<br />";
+                strErrorMessage += "<img src='image/warning.png' height='25px' width='25px' />&nbsp;&nbsp;E mail address is not valid.<br />";
             }
             MailCheck();
             if (intMailAvail==1)
             {
                 intVaidError++;
-                strErrorMessage += "E mail address already exists.<br />";
+                strErrorMessage += "<img src='image/warning.png' height='25px' width='25px' />&nbsp;&nbsp;E mail address already exists.<br />";
             }
             if (chkAgree.Checked == false)
             {
                 intVaidError++;
-                strErrorMessage += "Please agree terms and conditions.<br />";
+                strErrorMessage += "<img src='image/warning.png' height='25px' width='25px' />&nbsp;&nbsp;Please agree terms and conditions.<br />";
+            }
+            if (!fileProfile.HasFile)
+            {
+                strErrorMessage += "<img src='image/warning.png' height='25px' width='25px' />&nbsp;&nbsp;Please Select profile picture.<br />";
+                intVaidError++;
+            } 
+            if (fileProfile.HasFile)
+            {
+                if (fileProfile.PostedFile.ContentLength > (50 * 1024))
+                {
+                    strErrorMessage += "<img src='image/warning.png' height='25px' width='25px' />&nbsp;&nbsp;Image size exceeds maximum limit 50 KB.<br />";
+                    intVaidError++;
+                }
             }
         }
 
@@ -297,6 +349,34 @@ namespace ServeAtDoorstepWeb
         }
 
         #endregion
+
+        protected void ddlState_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            objService = new ServeAtDoorstepService();
+            DataTable dtCy = objService.SelectCityByStateId(Convert.ToInt32(ddlState.SelectedIndex.ToString()));
+            ddlCity.Items.Clear();
+            ListItem listItem = new ListItem();
+            listItem.Text = "<Select City>";
+            listItem.Value = "0";
+            ddlCity.Items.Add(listItem);
+            for (int i = 0; i < dtCy.Rows.Count; i++)
+            {
+                listItem = new ListItem();
+                listItem.Text = dtCy.Rows[i]["CityName"].ToString();
+                listItem.Value = dtCy.Rows[i]["CityId"].ToString();
+                ddlCity.Items.Add(listItem);
+            }
+        }
+
+        private bool IsUsorCanadianZipCode(string zipCode)
+        {
+            bool validZipCode = true;
+            if ((!Regex.Match(zipCode, _usZipRegEx).Success) && (!Regex.Match(zipCode, _caZipRegEx).Success))
+            {
+                validZipCode = false;
+            }
+            return validZipCode;
+        }
 
     }
 }

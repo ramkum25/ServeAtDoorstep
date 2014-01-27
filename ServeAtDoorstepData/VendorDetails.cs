@@ -45,7 +45,7 @@ namespace ServeAtDoorstepData
     public class VendorMessageDetails
     {
         public int VendorMessageId { get; set; }
-        public int QuoteId { get; set; }
+        public int QuiryId { get; set; }
         public int SendCustomerId { get; set; }
         public int VendorId { get; set; }
         public int CategoryId { get; set; }
@@ -58,5 +58,29 @@ namespace ServeAtDoorstepData
 
     }
 
+    public class VendorServiceDetails
+    {
+        public int VendorServiceId { get; set; }
+        public int VendorId { get; set; }
+        public int ServiceId { get; set; }
+        public int CategoryId { get; set; }
+        public string Status { get; set; }
+        public string CreatedOn { get; set; }
+        public int CreatedBy { get; set; }
+
+    }
+
+    public class VendorAreaDetails
+    {
+        public int VendorAreaID { get; set; }
+        public int VendorId { get; set; }
+        public string VACityName { get; set; }
+        public string VAZipcode { get; set; }
+        public string VAState { get; set; }
+        public string VADistance { get; set; }
+        public string CreatedOn { get; set; }
+        public int CreatedBy { get; set; }
+
+    }
 
 }

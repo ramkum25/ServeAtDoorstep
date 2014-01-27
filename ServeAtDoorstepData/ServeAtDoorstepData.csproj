@@ -41,10 +41,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomerDetails.cs" />
+    <Compile Include="FeedbackDetails.cs" />
     <Compile Include="LoginDetails.cs" />
     <Compile Include="MembershipDetails.cs" />
+    <Compile Include="OrderDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QuoteDetails.cs" />
+    <Compile Include="InquiryDetails.cs" />
     <Compile Include="ServiceDetails.cs" />
     <Compile Include="VendorDetails.cs" />
   </ItemGroup>
